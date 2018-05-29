@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="開始番号" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="検索モード" Type="System.String" Scope="User">
+      <Value Profile="(Default)">全文一致</Value>
+    </Setting>
+    <Setting Name="出力先パス" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="受信方法" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB(HID)</Value>
+    </Setting>
+    <Setting Name="ログファイルパス" Type="System.String" Scope="User">
+      <Value Profile="(Default)">./log.txt</Value>
+    </Setting>
+    <Setting Name="バーコードカラム名" Type="System.String" Scope="User">
+      <Value Profile="(Default)">在籍番号</Value>
+    </Setting>
+    <Setting Name="入力カラム名" Type="System.String" Scope="User">
+      <Value Profile="(Default)">整理番号</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
