@@ -64,6 +64,8 @@ Partial Class MainForm
         Me.excelDataGridView = New System.Windows.Forms.DataGridView()
         Me.grdDataSet = New System.Data.DataSet()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.出力ファイル名Box = New System.Windows.Forms.TextBox()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -153,6 +155,7 @@ Partial Class MainForm
         Me.通番Box.Font = New System.Drawing.Font("MS UI Gothic", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.通番Box.Location = New System.Drawing.Point(843, 160)
         Me.通番Box.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.通番Box.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
         Me.通番Box.Name = "通番Box"
         Me.通番Box.Size = New System.Drawing.Size(113, 27)
         Me.通番Box.TabIndex = 3
@@ -183,6 +186,7 @@ Partial Class MainForm
         'バーコードデータBox
         '
         Me.バーコードデータBox.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.バーコードデータBox.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.バーコードデータBox.Location = New System.Drawing.Point(74, 35)
         Me.バーコードデータBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.バーコードデータBox.Name = "バーコードデータBox"
@@ -237,11 +241,11 @@ Partial Class MainForm
         Me.レコード検索Page.Controls.Add(Me.検索キーBox)
         Me.レコード検索Page.Controls.Add(Me.検索Btn)
         Me.レコード検索Page.Controls.Add(Me.Label4)
-        Me.レコード検索Page.Location = New System.Drawing.Point(4, 25)
+        Me.レコード検索Page.Location = New System.Drawing.Point(4, 34)
         Me.レコード検索Page.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.レコード検索Page.Name = "レコード検索Page"
         Me.レコード検索Page.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.レコード検索Page.Size = New System.Drawing.Size(1156, 246)
+        Me.レコード検索Page.Size = New System.Drawing.Size(1156, 237)
         Me.レコード検索Page.TabIndex = 1
         Me.レコード検索Page.Text = "レコード検索"
         '
@@ -291,10 +295,10 @@ Partial Class MainForm
         Me.データ出力Page.Controls.Add(Me.エクセルファイル出力Btn)
         Me.データ出力Page.Controls.Add(Me.OutputFilePathBox)
         Me.データ出力Page.Controls.Add(Me.Label5)
-        Me.データ出力Page.Location = New System.Drawing.Point(4, 25)
+        Me.データ出力Page.Location = New System.Drawing.Point(4, 34)
         Me.データ出力Page.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.データ出力Page.Name = "データ出力Page"
-        Me.データ出力Page.Size = New System.Drawing.Size(1156, 246)
+        Me.データ出力Page.Size = New System.Drawing.Size(1156, 237)
         Me.データ出力Page.TabIndex = 2
         Me.データ出力Page.Text = "データ出力"
         '
@@ -345,6 +349,8 @@ Partial Class MainForm
         '設定Page
         '
         Me.設定Page.BackColor = System.Drawing.SystemColors.Control
+        Me.設定Page.Controls.Add(Me.出力ファイル名Box)
+        Me.設定Page.Controls.Add(Me.Label2)
         Me.設定Page.Controls.Add(Me.入力カラム名Box)
         Me.設定Page.Controls.Add(Me.Label11)
         Me.設定Page.Controls.Add(Me.出力先フォルダパス選択Btn)
@@ -359,17 +365,17 @@ Partial Class MainForm
         Me.設定Page.Controls.Add(Me.Label7)
         Me.設定Page.Controls.Add(Me.通番開始番号Box)
         Me.設定Page.Controls.Add(Me.Label6)
-        Me.設定Page.Location = New System.Drawing.Point(4, 25)
+        Me.設定Page.Location = New System.Drawing.Point(4, 34)
         Me.設定Page.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.設定Page.Name = "設定Page"
-        Me.設定Page.Size = New System.Drawing.Size(1156, 246)
+        Me.設定Page.Size = New System.Drawing.Size(1156, 237)
         Me.設定Page.TabIndex = 3
         Me.設定Page.Text = "設定"
         '
         '入力カラム名Box
         '
         Me.入力カラム名Box.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.入力カラム名Box.Location = New System.Drawing.Point(234, 182)
+        Me.入力カラム名Box.Location = New System.Drawing.Point(886, 27)
         Me.入力カラム名Box.Name = "入力カラム名Box"
         Me.入力カラム名Box.Size = New System.Drawing.Size(210, 29)
         Me.入力カラム名Box.TabIndex = 21
@@ -378,7 +384,7 @@ Partial Class MainForm
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label11.Location = New System.Drawing.Point(62, 182)
+        Me.Label11.Location = New System.Drawing.Point(685, 27)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(99, 22)
         Me.Label11.TabIndex = 20
@@ -400,7 +406,7 @@ Partial Class MainForm
         'バーコードカラム名Box
         '
         Me.バーコードカラム名Box.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.バーコードカラム名Box.Location = New System.Drawing.Point(234, 133)
+        Me.バーコードカラム名Box.Location = New System.Drawing.Point(234, 182)
         Me.バーコードカラム名Box.Name = "バーコードカラム名Box"
         Me.バーコードカラム名Box.Size = New System.Drawing.Size(210, 29)
         Me.バーコードカラム名Box.TabIndex = 18
@@ -409,7 +415,7 @@ Partial Class MainForm
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label10.Location = New System.Drawing.Point(62, 133)
+        Me.Label10.Location = New System.Drawing.Point(62, 185)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(131, 22)
         Me.Label10.TabIndex = 17
@@ -420,7 +426,7 @@ Partial Class MainForm
         Me.バーコード受信方法Box.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.バーコード受信方法Box.FormattingEnabled = True
         Me.バーコード受信方法Box.Items.AddRange(New Object() {"USB(HID)"})
-        Me.バーコード受信方法Box.Location = New System.Drawing.Point(874, 80)
+        Me.バーコード受信方法Box.Location = New System.Drawing.Point(886, 133)
         Me.バーコード受信方法Box.Name = "バーコード受信方法Box"
         Me.バーコード受信方法Box.Size = New System.Drawing.Size(210, 30)
         Me.バーコード受信方法Box.TabIndex = 16
@@ -430,7 +436,7 @@ Partial Class MainForm
         Me.検索モードBox.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.検索モードBox.FormattingEnabled = True
         Me.検索モードBox.Items.AddRange(New Object() {"全文一致", "部分一致"})
-        Me.検索モードBox.Location = New System.Drawing.Point(874, 27)
+        Me.検索モードBox.Location = New System.Drawing.Point(886, 80)
         Me.検索モードBox.Name = "検索モードBox"
         Me.検索モードBox.Size = New System.Drawing.Size(210, 30)
         Me.検索モードBox.TabIndex = 15
@@ -453,7 +459,7 @@ Partial Class MainForm
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label9.Location = New System.Drawing.Point(673, 80)
+        Me.Label9.Location = New System.Drawing.Point(685, 133)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(144, 22)
         Me.Label9.TabIndex = 6
@@ -463,7 +469,7 @@ Partial Class MainForm
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label8.Location = New System.Drawing.Point(673, 27)
+        Me.Label8.Location = New System.Drawing.Point(685, 80)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(83, 22)
         Me.Label8.TabIndex = 4
@@ -537,6 +543,24 @@ Partial Class MainForm
         'grdDataSet
         '
         Me.grdDataSet.DataSetName = "NewDataSet"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(62, 130)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(108, 22)
+        Me.Label2.TabIndex = 22
+        Me.Label2.Text = "出力ファイル名"
+        '
+        '出力ファイル名Box
+        '
+        Me.出力ファイル名Box.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.出力ファイル名Box.Location = New System.Drawing.Point(234, 130)
+        Me.出力ファイル名Box.Name = "出力ファイル名Box"
+        Me.出力ファイル名Box.Size = New System.Drawing.Size(210, 29)
+        Me.出力ファイル名Box.TabIndex = 23
         '
         'MainForm
         '
@@ -616,4 +640,6 @@ Partial Class MainForm
     Friend WithEvents 入力カラム名Box As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
+    Friend WithEvents 出力ファイル名Box As TextBox
+    Friend WithEvents Label2 As Label
 End Class

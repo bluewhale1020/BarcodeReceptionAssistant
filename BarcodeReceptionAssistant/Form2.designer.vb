@@ -25,6 +25,8 @@ Partial Class 本人確認ダイアログ
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(本人確認ダイアログ))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.尿検査2Label = New System.Windows.Forms.Label()
+        Me.尿検査Label = New System.Windows.Forms.Label()
         Me.情報データ7 = New System.Windows.Forms.Label()
         Me.情報データ6 = New System.Windows.Forms.Label()
         Me.情報データ5 = New System.Windows.Forms.Label()
@@ -45,7 +47,6 @@ Partial Class 本人確認ダイアログ
         Me.その他検査Label = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.バーコードLabel = New System.Windows.Forms.Label()
@@ -53,16 +54,19 @@ Partial Class 本人確認ダイアログ
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.確定Btn = New System.Windows.Forms.Button()
         Me.キャンセルBtn = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.血液検査Panel.SuspendLayout()
         Me.othersPanel.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.GroupBox2)
         Me.Panel1.Controls.Add(Me.GroupBox1)
         Me.Panel1.Controls.Add(Me.Panel3)
         Me.Panel1.Location = New System.Drawing.Point(18, 20)
@@ -87,18 +91,32 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.Controls.Add(Me.情報ラベル3)
         Me.GroupBox1.Controls.Add(Me.情報ラベル2)
         Me.GroupBox1.Controls.Add(Me.情報ラベル1)
-        Me.GroupBox1.Controls.Add(Me.血液検査Panel)
-        Me.GroupBox1.Controls.Add(Me.othersPanel)
-        Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.Label5)
-        Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(13, 92)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(701, 329)
+        Me.GroupBox1.Size = New System.Drawing.Size(701, 194)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "受診者情報"
+        '
+        '尿検査2Label
+        '
+        Me.尿検査2Label.AutoSize = True
+        Me.尿検査2Label.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.尿検査2Label.Location = New System.Drawing.Point(572, 39)
+        Me.尿検査2Label.Name = "尿検査2Label"
+        Me.尿検査2Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿検査2Label.TabIndex = 2
+        '
+        '尿検査Label
+        '
+        Me.尿検査Label.AutoSize = True
+        Me.尿検査Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.尿検査Label.ForeColor = System.Drawing.Color.Navy
+        Me.尿検査Label.Location = New System.Drawing.Point(454, 32)
+        Me.尿検査Label.Name = "尿検査Label"
+        Me.尿検査Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿検査Label.TabIndex = 19
         '
         '情報データ7
         '
@@ -244,7 +262,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.血液検査Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.血液検査Panel.Controls.Add(Me.採血パターンLabel)
-        Me.血液検査Panel.Location = New System.Drawing.Point(151, 232)
+        Me.血液検査Panel.Location = New System.Drawing.Point(152, 32)
         Me.血液検査Panel.Name = "血液検査Panel"
         Me.血液検査Panel.Size = New System.Drawing.Size(236, 30)
         Me.血液検査Panel.TabIndex = 4
@@ -262,7 +280,7 @@ Partial Class 本人確認ダイアログ
         'othersPanel
         '
         Me.othersPanel.Controls.Add(Me.その他検査Label)
-        Me.othersPanel.Location = New System.Drawing.Point(151, 287)
+        Me.othersPanel.Location = New System.Drawing.Point(152, 87)
         Me.othersPanel.Name = "othersPanel"
         Me.othersPanel.Size = New System.Drawing.Size(534, 36)
         Me.othersPanel.TabIndex = 3
@@ -281,7 +299,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(19, 287)
+        Me.Label6.Location = New System.Drawing.Point(40, 87)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(47, 19)
         Me.Label6.TabIndex = 2
@@ -291,20 +309,11 @@ Partial Class 本人確認ダイアログ
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(19, 232)
+        Me.Label5.Location = New System.Drawing.Point(40, 32)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(69, 19)
         Me.Label5.TabIndex = 1
         Me.Label5.Text = "血液検査"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(19, 193)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(106, 22)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "検査オプション"
         '
         'Panel3
         '
@@ -380,11 +389,27 @@ Partial Class 本人確認ダイアログ
         Me.キャンセルBtn.Text = "キャンセル"
         Me.キャンセルBtn.UseVisualStyleBackColor = True
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.尿検査2Label)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.尿検査Label)
+        Me.GroupBox2.Controls.Add(Me.Label6)
+        Me.GroupBox2.Controls.Add(Me.othersPanel)
+        Me.GroupBox2.Controls.Add(Me.血液検査Panel)
+        Me.GroupBox2.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 292)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(701, 130)
+        Me.GroupBox2.TabIndex = 2
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "検査オプション"
+        '
         '本人確認ダイアログ
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(755, 528)
+        Me.ClientSize = New System.Drawing.Size(766, 528)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -403,6 +428,8 @@ Partial Class 本人確認ダイアログ
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Panel2.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -416,7 +443,6 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents Panel2 As Panel
     Friend WithEvents 確定Btn As Button
     Friend WithEvents キャンセルBtn As Button
-    Friend WithEvents Label4 As Label
     Friend WithEvents 血液検査Panel As Panel
     Friend WithEvents othersPanel As FlowLayoutPanel
     Friend WithEvents Label6 As Label
@@ -437,4 +463,7 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents 情報ラベル2 As Label
     Friend WithEvents 情報ラベル1 As Label
     Friend WithEvents その他検査Label As Label
+    Friend WithEvents 尿検査2Label As Label
+    Friend WithEvents 尿検査Label As Label
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

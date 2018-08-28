@@ -23,5 +23,8 @@
     <Setting Name="入力カラム名" Type="System.String" Scope="User">
       <Value Profile="(Default)">整理番号</Value>
     </Setting>
+    <Setting Name="出力ファイル名" Type="System.String" Scope="User">
+      <Value Profile="(Default)">受付後健診簿</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

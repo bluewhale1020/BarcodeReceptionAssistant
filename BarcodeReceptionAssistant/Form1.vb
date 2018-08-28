@@ -20,8 +20,9 @@ Public Class MainForm
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"便", "胃部", "眼底", "代", "心電図", "胸部X線", "血圧", "尿検査", "肺活量"}
+    Private optionColNames As Array = {"便", "胃部", "眼底", "代", "心電図", "胸部X線", "血圧", "ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "肺活量", "握力", "じん肺", "鉛", "電離", "インジウム"}
     Private bloodColName As String = "血液検査"
+    Private urinaryColNames As Array = {"尿検査", "尿検査2"}
 
     'クラスオブジェクト
     Public excelCn As ExcelController
@@ -56,6 +57,7 @@ Public Class MainForm
         createOutputPath()
 
         出力先フォルダパスBox.Text = My.Settings.出力先パス
+        出力ファイル名Box.Text = My.Settings.出力ファイル名
         OutputFilePathBox.Text = My.Settings.出力先パス
         バーコードカラム名Box.Text = My.Settings.バーコードカラム名
         入力カラム名Box.Text = My.Settings.入力カラム名
@@ -84,6 +86,7 @@ Public Class MainForm
         My.Settings.開始番号 = 通番開始番号Box.Text
         My.Settings.出力先パス = 出力先フォルダパスBox.Text
         OutputFilePathBox.Text = 出力先フォルダパスBox.Text
+        My.Settings.出力ファイル名 = 出力ファイル名Box.Text
         My.Settings.バーコードカラム名 = バーコードカラム名Box.Text
         My.Settings.入力カラム名 = 入力カラム名Box.Text
         My.Settings.検索モード = 検索モードBox.Text
@@ -241,6 +244,38 @@ Public Class MainForm
 
     End Function
 
+    Private Function editTableRow(ByRef dtable As DataTable, ByVal colName As String, ByVal rowIdx As Int32, ByVal cellVal As String)
+
+        Dim result As Boolean = True
+        Try
+            'テーブルの該当列のセルを編集
+
+            dtable.Rows(rowIdx).Item(colName) = cellVal
+
+
+            If colName = My.Settings.入力カラム名 Then
+
+                'SNMnger.通番セルの変更(gridDataTable)
+                '受付人数更新()
+
+                'ValidateCurrentNumber()
+
+                If IsNumeric(cellVal) Then
+                    時刻印字(rowIdx, True)
+                End If
+
+
+            End If
+
+
+
+        Catch ex As Exception
+            result = False
+        End Try
+
+        Return result
+    End Function
+
     Private Sub excelDataGridView_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles excelDataGridView.CellBeginEdit
         If IsDBNull(excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value) = False Then
             oldSNumber = excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value
@@ -347,7 +382,7 @@ Public Class MainForm
                 If 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
-                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems)
+                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData)
                     f2.ShowDialog(Me)
 
 
@@ -403,6 +438,41 @@ Public Class MainForm
 
         Return ""
     End Function
+
+    Private Function getUrinaryData()
+
+        Dim urinaryData As ArrayList = New ArrayList
+        Dim idx As Integer = 0
+        For Each item In excelDataGridView.SelectedRows.Item(0).Cells
+            Dim colName As String = excelDataGridView.Columns(idx).Name
+
+            Dim strVal As String = Convert.ToString(item.Value)
+
+            If Array.IndexOf(urinaryColNames, colName) <> -1 Then
+                If colName = "尿検査" Then
+                    If strVal <> "" Then
+                        urinaryData.Add(colName)
+                    Else
+                        urinaryData.Add("")
+                    End If
+
+
+                ElseIf colName = "尿検査2" Then
+                    urinaryData.Add(strVal)
+
+                End If
+
+            End If
+
+
+            idx += 1
+
+        Next
+
+        Return urinaryData
+
+    End Function
+
     Private Function getGridViewRow()
         Dim drow As Hashtable = New Hashtable
         Dim idx As Integer = 0
@@ -439,18 +509,114 @@ Public Class MainForm
 
     End Sub
 
-    Private Function 通番印字()
+    Public Sub 新規登録処理(ByVal barcodeTest As String)
+        If Me.confirmed Then '確定した
+
+            Dim drow As DataRow = gridDataTable.NewRow
+            gridDataTable.Rows.Add(drow)
+            gridDataTable.AcceptChanges()
+
+            '新規列を選択
+            Dim selectedRowId As Integer = gridDataTable.Rows.Count - 1
+            'excelDataGridView.Rows(selectedRowId).Selected = True
+
+
+            'gridDataTable.AcceptChanges()
+
+            'excelDataGridView.Rows(selectedRowId).Selected = True
+            'datagridviewの選択レコードの受付日時と通番にそれぞれ現在日時と現在の通番を入力する
+            If 通番印字(True, selectedRowId) Then
+                'Dim snTable As OrderedDictionary = SNMnger.通番情報の取得 'SNMnger.通番を1加算
+
+                '在籍番号を入力
+                在籍番号印字(barcodeTest, True, selectedRowId)
+
+                gridDataTable.AcceptChanges()
+
+                '通番加算
+
+
+
+
+
+                SNMnger.通番セルの変更(gridDataTable)
+                '通番の入力(snTable("現在の通番"))
+                受付人数更新()
+
+                ValidateCurrentNumber()
+
+
+            Else
+                MessageBox.Show("グリッドデータに通番を登録できませんでした。", "通番登録エラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+            Call Me.MainForm_Activated(Nothing, Nothing)   '表示更新の為、強制的にMainForm_Activatedをコール
+
+            '新規行選択
+            検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名)
+
+
+        Else 'キャンセルした
+            'datagridviewのレコード選択をクリアする
+            excelDataGridView.ClearSelection()
+        End If
+        バーコードデータBox.Text = ""
+
+
+
+    End Sub
+
+    Private Function 在籍番号印字(ByVal barcodeTest As String, ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
+        'Dim strTime As String = 受付時刻を取得()
+        'Dim barcodeTest As String = バーコードデータBox.Text
+
+
+
+        If useDTable Then
+            Dim rowIdx As Int32 = tRowIdx
+            If editTableRow(gridDataTable, "在籍番号", rowIdx, barcodeTest) Then
+                'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
+                Return True
+            Else
+                Return False
+            End If
+        Else
+            Dim rowIdx As Int32 = excelDataGridView.SelectedRows.Item(0).Index 'excelDataGridView.CurrentRow.Index　　' 
+            If editGridCell(excelDataGridView, "在籍番号", rowIdx, barcodeTest) Then
+                'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
+                Return True
+            Else
+                Return False
+            End If
+        End If
+
+
+    End Function
+
+    Private Function 通番印字(ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
         'Dim strTime As String = 受付時刻を取得()
         Dim currentNumber As Integer = SNMnger.現在の通番を取得()
 
-        Dim rowIdx As Int32 = excelDataGridView.SelectedRows.Item(0).Index
 
+        If useDTable Then
+
+            Dim rowIdx As Int32 = tRowIdx
+            If editTableRow(gridDataTable, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then
+                'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
+                Return True
+        Else
+            Return False
+        End If
+        Else
+        Dim rowIdx As Int32 = excelDataGridView.SelectedRows.Item(0).Index
         If editGridCell(excelDataGridView, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then
             'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
             Return True
         Else
             Return False
         End If
+        End If
+
 
     End Function
 
@@ -593,18 +759,6 @@ Public Class MainForm
 
     End Sub
 
-    'Private Sub 通番Box_Leave(sender As Object, e As EventArgs) Handles 通番Box.Leave
-    '    If CheckGridViewIsFilled = False Then
-    '        Exit Sub
-    '    End If
-
-
-    '    If 通番Box.Value <> SNMnger.現在の通番を取得 Then
-    '        Dim newCurrentNumber As Integer = SNMnger.現在の通番を更新(通番Box.Value, gridDataTable)
-    '        通番Box.Value = newCurrentNumber
-    '    End If
-
-    'End Sub
 
     Private Sub 通番Box_ValueChanged(sender As Object, e As EventArgs) Handles 通番Box.ValueChanged
         If CheckGridViewIsFilled = False Then
@@ -626,26 +780,25 @@ Public Class MainForm
     End Sub
 
     '日付処理
-    'Public Function 受付日の取得()
 
-    '    Dim today As Date
-
-    '    today = New Date.Now()
-
-
-    '    Return today
-
-    'End Function
-    Private Function 時刻印字(ByVal rowIdx As Int32)
-        Dim strTime As String = 受付時刻を取得()
+    Private Function 時刻印字(ByVal rowIdx As Int32, ByVal Optional useDTable As Boolean = False)
+        Dim strDateTime As String = 受付時刻を取得()
 
         'Dim rowIdx As Int32 = excelDataGridView.SelectedRows.Item(0).Index
-
-        If editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) Then
-            Return True
+        If useDTable Then
+            If editTableRow(gridDataTable, "受付時間", rowIdx, strDateTime) Then
+                Return True
+            Else
+                Return False
+            End If
         Else
-            Return False
+            If editGridCell(excelDataGridView, "受付時間", rowIdx, strDateTime) Then
+                Return True
+            Else
+                Return False
+            End If
         End If
+
 
     End Function
 
@@ -654,7 +807,7 @@ Public Class MainForm
 
         today = Now
 
-        Dim strTime As String = DirectCast(today.ToShortTimeString, String)
+        Dim strTime As String = DirectCast(today.ToString("yyyy/MM/dd HH:mm"), String)
         Return strTime
 
     End Function

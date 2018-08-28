@@ -24,6 +24,7 @@ Partial Class 本人確認失敗ダイアログ
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(本人確認失敗ダイアログ))
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.キャンセルBtn = New System.Windows.Forms.Button()
         Me.OKBtn = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -31,6 +32,7 @@ Partial Class 本人確認失敗ダイアログ
         Me.MessageLabel1 = New System.Windows.Forms.Label()
         Me.バーコードデータLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -38,12 +40,23 @@ Partial Class 本人確認失敗ダイアログ
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.キャンセルBtn)
         Me.Panel2.Controls.Add(Me.OKBtn)
         Me.Panel2.Location = New System.Drawing.Point(436, 224)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(301, 51)
         Me.Panel2.TabIndex = 3
+        '
+        'キャンセルBtn
+        '
+        Me.キャンセルBtn.Location = New System.Drawing.Point(25, 8)
+        Me.キャンセルBtn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.キャンセルBtn.Name = "キャンセルBtn"
+        Me.キャンセルBtn.Size = New System.Drawing.Size(112, 38)
+        Me.キャンセルBtn.TabIndex = 4
+        Me.キャンセルBtn.Text = "キャンセル"
+        Me.キャンセルBtn.UseVisualStyleBackColor = True
         '
         'OKBtn
         '
@@ -54,7 +67,7 @@ Partial Class 本人確認失敗ダイアログ
         Me.OKBtn.Name = "OKBtn"
         Me.OKBtn.Size = New System.Drawing.Size(112, 38)
         Me.OKBtn.TabIndex = 1
-        Me.OKBtn.Text = "OK"
+        Me.OKBtn.Text = "新規登録"
         Me.OKBtn.UseVisualStyleBackColor = False
         '
         'Panel1
@@ -63,13 +76,14 @@ Partial Class 本人確認失敗ダイアログ
         Me.Panel1.Location = New System.Drawing.Point(13, 14)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(724, 169)
+        Me.Panel1.Size = New System.Drawing.Size(724, 200)
         Me.Panel1.TabIndex = 2
         '
         'Panel3
         '
         Me.Panel3.AutoSize = True
         Me.Panel3.BackColor = System.Drawing.Color.LightCoral
+        Me.Panel3.Controls.Add(Me.Label2)
         Me.Panel3.Controls.Add(Me.MessageLabel2)
         Me.Panel3.Controls.Add(Me.MessageLabel1)
         Me.Panel3.Controls.Add(Me.バーコードデータLabel)
@@ -77,7 +91,7 @@ Partial Class 本人確認失敗ダイアログ
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(724, 169)
+        Me.Panel3.Size = New System.Drawing.Size(724, 200)
         Me.Panel3.TabIndex = 0
         '
         'MessageLabel2
@@ -86,9 +100,9 @@ Partial Class 本人確認失敗ダイアログ
         Me.MessageLabel2.Font = New System.Drawing.Font("Meiryo UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.MessageLabel2.Location = New System.Drawing.Point(25, 93)
         Me.MessageLabel2.Name = "MessageLabel2"
-        Me.MessageLabel2.Size = New System.Drawing.Size(341, 24)
+        Me.MessageLabel2.Size = New System.Drawing.Size(517, 24)
         Me.MessageLabel2.TabIndex = 3
-        Me.MessageLabel2.Text = "読み取りデータ欄に直接手入力して下さい。"
+        Me.MessageLabel2.Text = "新規追加ボタンを押して下さい。やり直す場合は、キャンセルを押し、"
         '
         'MessageLabel1
         '
@@ -96,9 +110,9 @@ Partial Class 本人確認失敗ダイアログ
         Me.MessageLabel1.Font = New System.Drawing.Font("Meiryo UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.MessageLabel1.Location = New System.Drawing.Point(25, 54)
         Me.MessageLabel1.Name = "MessageLabel1"
-        Me.MessageLabel1.Size = New System.Drawing.Size(641, 24)
+        Me.MessageLabel1.Size = New System.Drawing.Size(539, 24)
         Me.MessageLabel1.TabIndex = 2
-        Me.MessageLabel1.Text = "健診簿に該当する受診者が見つかりませんでした。もう一度バーコードを読み込むか、"
+        Me.MessageLabel1.Text = "健診簿に該当する受診者が見つかりませんでした。追加したい場合は、"
         '
         'バーコードデータLabel
         '
@@ -119,6 +133,16 @@ Partial Class 本人確認失敗ダイアログ
         Me.Label1.Size = New System.Drawing.Size(141, 24)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "バーコード情報："
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Meiryo UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label2.Location = New System.Drawing.Point(25, 135)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(593, 24)
+        Me.Label2.TabIndex = 4
+        Me.Label2.Text = "もう一度バーコードを読み込むか、読み取りデータ欄に直接手入力して下さい。"
         '
         '本人確認失敗ダイアログ
         '
@@ -147,4 +171,6 @@ Partial Class 本人確認失敗ダイアログ
     Friend WithEvents バーコードデータLabel As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents MessageLabel2 As Label
+    Friend WithEvents キャンセルBtn As Button
+    Friend WithEvents Label2 As Label
 End Class

@@ -15,25 +15,6 @@
     End Sub
 
 
-    'Private Structure personInfo
-    '    Dim 情報ラベル1 As String
-    '    Dim 情報ラベル2 As String
-    '    Dim 情報ラベル3 As String
-    '    Dim 情報ラベル4 As String
-    '    Dim 情報ラベル5 As String
-    '    Dim 情報ラベル6 As String
-    '    Dim 情報ラベル7 As String
-    '    Dim 情報データ1 As String
-    '    Dim 情報データ2 As String
-    '    Dim 情報データ3 As String
-    '    Dim 情報データ4 As String
-    '    Dim 情報データ5 As String
-    '    Dim 情報データ6 As String
-    '    Dim 情報データ7 As String
-
-    'End Structure
-
-    'Dim thisPersonInfo As personInfo
     Private isRegistered As Boolean = False
 
     Public Sub 登録情報を設定(ByVal RegistrationStatus As Boolean)
@@ -49,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList)
 
         本人情報のクリア()
 
@@ -69,13 +50,13 @@
                 Exit For
             End If
         Next
-        本人情報の表示(barcodeData, bloodPattern, optionItems)
+        本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData)
 
         登録情報を設定(registrationStatus)
 
     End Sub
 
-    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList)
+    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList)
 
         Dim idx As Integer = 1
 
@@ -101,7 +82,26 @@
             採血パターンLabel.Text = bloodPattern
         End If
 
+        '尿検査オプションの表示
+        尿検査表示(urinaryData)
+
+
         検査オプション項目表示(optionItems)
+    End Sub
+
+    Private Sub 尿検査表示(ByVal urinaryData As ArrayList)
+
+        If urinaryData(0) <> "" Then
+
+            尿検査Label.Text = "☑" + urinaryData(0)
+
+        End If
+        If urinaryData(1) <> "" Then
+
+            尿検査2Label.Text = urinaryData(1)
+
+        End If
+
     End Sub
 
     Private Sub 検査オプション項目表示(ByVal optionItems As ArrayList)
@@ -158,5 +158,6 @@
     Private Sub 登録のキャンセル()
         CType(Me.Owner, MainForm).confirmed = False
     End Sub
+
 
 End Class

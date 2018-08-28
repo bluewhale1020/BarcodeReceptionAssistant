@@ -179,19 +179,7 @@ Public Class SerialNumberManager
 
     End Function
 
-    'Public Function 通番の削除(ByVal delNumber As Integer, ByRef gridDataTable As DataTable)
 
-    '    numOfReceivedPersons -= 1
-
-    '    If delNumber = startNumber Then
-    '        startNumber = 通番最小値の取得(gridDataTable)
-    '    ElseIf delNumber = endNumber Then
-    '        endNumber = 通番最大値の取得(gridDataTable)
-    '    End If
-
-    '    Return numOfReceivedPersons
-
-    'End Function
     Public Function 通番セルの変更(ByRef gridDataTable As DataTable)
 
         Dim colData As ArrayList = createColDataFromDatatable(gridDataTable)
