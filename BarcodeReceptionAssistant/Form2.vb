@@ -96,7 +96,7 @@
             尿検査Label.Text = "☑" + urinaryData(0)
 
         End If
-        If urinaryData(1) <> "" Then
+        If urinaryData.Count > 1 AndAlso urinaryData(1) <> "" Then
 
             尿検査2Label.Text = urinaryData(1)
 

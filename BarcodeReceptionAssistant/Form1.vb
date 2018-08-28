@@ -130,7 +130,7 @@ Public Class MainForm
         gridDataTable = excelCn.ファイルのロード(files(0))
         If gridDataTable Is Nothing Then
 
-        ElseIf gridDataTable.Rows.Count > 1 Then
+        ElseIf gridDataTable.Rows.Count > 0 Then
             Me.excelDataGridView.DataSource = gridDataTable
             列データをgridColDataに登録(gridDataTable)
             TabControl1.SelectTab("バーコード受付Page")
