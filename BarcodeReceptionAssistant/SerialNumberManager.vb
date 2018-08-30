@@ -12,17 +12,41 @@ Public Class SerialNumberManager
         initializeNumberInfo()
     End Sub
 
-    Private Sub initializeNumberInfo()
+    Private Sub setNumberInfoDefault()
         startNumber = My.Settings.開始番号
         endNumber = startNumber
         numOfReceivedPersons = 0
         currentNumber = startNumber
         missingNumbers = New ArrayList()
+
     End Sub
 
-    Public Function 通番情報リセット()
+    Private Sub initializeNumberInfo(ByRef Optional gridDataTable As DataTable = Nothing)
 
-        initializeNumberInfo()
+        If gridDataTable Is Nothing Then
+            setNumberInfoDefault()
+
+        Else
+
+            通番セルの変更(gridDataTable)
+
+            If endNumber = 0 Then
+                setNumberInfoDefault()
+            Else
+                欠番を計算(gridDataTable)
+                currentNumber = endNumber + 1
+            End If
+
+
+        End If
+
+
+
+    End Sub
+
+    Public Function 通番情報リセット(ByRef gridDataTable As DataTable)
+
+        initializeNumberInfo(gridDataTable)
 
         Return 現在の通番を取得()
 

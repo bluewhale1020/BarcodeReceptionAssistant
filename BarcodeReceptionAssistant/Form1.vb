@@ -20,7 +20,7 @@ Public Class MainForm
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"便", "胃部", "眼底", "代", "心電図", "胸部X線", "血圧", "ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "肺活量", "握力", "じん肺", "鉛", "電離", "インジウム"}
+    Private optionColNames As Array = {"便", "胃部", "眼底", "代", "心電図", "胸部X線", "血圧", "尿沈渣", "ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "肺活量", "握力", "じん肺", "鉛", "電離", "インジウム"}
     Private bloodColName As String = "血液検査"
     Private urinaryColNames As Array = {"尿検査", "尿検査2"}
 
@@ -139,7 +139,7 @@ Public Class MainForm
             dragdropMessage.Visible = False
 
 
-            Dim currentNumber As Integer = SNMnger.通番情報リセット()
+            Dim currentNumber As Integer = SNMnger.通番情報リセット(gridDataTable)
 
             通番Box.Value = currentNumber
             受付人数更新()
@@ -753,7 +753,7 @@ Public Class MainForm
     End Sub
 
     Private Sub 通番リセットBtn_Click(sender As Object, e As EventArgs) Handles 通番リセットBtn.Click
-        Dim currentNumber As Integer = SNMnger.通番情報リセット()
+        Dim currentNumber As Integer = SNMnger.通番情報リセット(gridDataTable)
 
         通番Box.Value = currentNumber
 

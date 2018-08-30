@@ -24,9 +24,16 @@ Partial Class 本人確認ダイアログ
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(本人確認ダイアログ))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.尿検査2Label = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.尿検査Label = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.othersPanel = New System.Windows.Forms.FlowLayoutPanel()
+        Me.その他検査Label = New System.Windows.Forms.Label()
+        Me.血液検査Panel = New System.Windows.Forms.Panel()
+        Me.採血パターンLabel = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.情報データ7 = New System.Windows.Forms.Label()
         Me.情報データ6 = New System.Windows.Forms.Label()
         Me.情報データ5 = New System.Windows.Forms.Label()
@@ -41,12 +48,6 @@ Partial Class 本人確認ダイアログ
         Me.情報ラベル3 = New System.Windows.Forms.Label()
         Me.情報ラベル2 = New System.Windows.Forms.Label()
         Me.情報ラベル1 = New System.Windows.Forms.Label()
-        Me.血液検査Panel = New System.Windows.Forms.Panel()
-        Me.採血パターンLabel = New System.Windows.Forms.Label()
-        Me.othersPanel = New System.Windows.Forms.FlowLayoutPanel()
-        Me.その他検査Label = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.バーコードLabel = New System.Windows.Forms.Label()
@@ -54,14 +55,13 @@ Partial Class 本人確認ダイアログ
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.確定Btn = New System.Windows.Forms.Button()
         Me.キャンセルBtn = New System.Windows.Forms.Button()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.血液検査Panel.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.othersPanel.SuspendLayout()
+        Me.血液検査Panel.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -74,6 +74,98 @@ Partial Class 本人確認ダイアログ
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(724, 433)
         Me.Panel1.TabIndex = 0
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.尿検査2Label)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Controls.Add(Me.尿検査Label)
+        Me.GroupBox2.Controls.Add(Me.Label6)
+        Me.GroupBox2.Controls.Add(Me.othersPanel)
+        Me.GroupBox2.Controls.Add(Me.血液検査Panel)
+        Me.GroupBox2.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 292)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(701, 130)
+        Me.GroupBox2.TabIndex = 2
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "検査オプション"
+        '
+        '尿検査2Label
+        '
+        Me.尿検査2Label.AutoSize = True
+        Me.尿検査2Label.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.尿検査2Label.Location = New System.Drawing.Point(494, 37)
+        Me.尿検査2Label.Name = "尿検査2Label"
+        Me.尿検査2Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿検査2Label.TabIndex = 2
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label5.Location = New System.Drawing.Point(40, 39)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(69, 19)
+        Me.Label5.TabIndex = 1
+        Me.Label5.Text = "血液検査"
+        '
+        '尿検査Label
+        '
+        Me.尿検査Label.AutoSize = True
+        Me.尿検査Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.尿検査Label.ForeColor = System.Drawing.Color.Navy
+        Me.尿検査Label.Location = New System.Drawing.Point(417, 37)
+        Me.尿検査Label.Name = "尿検査Label"
+        Me.尿検査Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿検査Label.TabIndex = 19
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.Label6.Location = New System.Drawing.Point(40, 87)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(47, 19)
+        Me.Label6.TabIndex = 2
+        Me.Label6.Text = "その他"
+        '
+        'othersPanel
+        '
+        Me.othersPanel.Controls.Add(Me.その他検査Label)
+        Me.othersPanel.Location = New System.Drawing.Point(152, 87)
+        Me.othersPanel.Name = "othersPanel"
+        Me.othersPanel.Size = New System.Drawing.Size(534, 36)
+        Me.othersPanel.TabIndex = 3
+        '
+        'その他検査Label
+        '
+        Me.その他検査Label.AutoSize = True
+        Me.その他検査Label.ForeColor = System.Drawing.Color.Navy
+        Me.その他検査Label.Location = New System.Drawing.Point(3, 0)
+        Me.その他検査Label.Name = "その他検査Label"
+        Me.その他検査Label.Size = New System.Drawing.Size(183, 22)
+        Me.その他検査Label.TabIndex = 2
+        Me.その他検査Label.Text = "その他の検査はありません"
+        '
+        '血液検査Panel
+        '
+        Me.血液検査Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.血液検査Panel.Controls.Add(Me.採血パターンLabel)
+        Me.血液検査Panel.Location = New System.Drawing.Point(152, 32)
+        Me.血液検査Panel.Name = "血液検査Panel"
+        Me.血液検査Panel.Size = New System.Drawing.Size(236, 30)
+        Me.血液検査Panel.TabIndex = 4
+        '
+        '採血パターンLabel
+        '
+        Me.採血パターンLabel.AutoSize = True
+        Me.採血パターンLabel.ForeColor = System.Drawing.Color.Maroon
+        Me.採血パターンLabel.Location = New System.Drawing.Point(16, 6)
+        Me.採血パターンLabel.Name = "採血パターンLabel"
+        Me.採血パターンLabel.Size = New System.Drawing.Size(39, 22)
+        Me.採血パターンLabel.TabIndex = 1
+        Me.採血パターンLabel.Text = "無し"
         '
         'GroupBox1
         '
@@ -98,25 +190,6 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "受診者情報"
-        '
-        '尿検査2Label
-        '
-        Me.尿検査2Label.AutoSize = True
-        Me.尿検査2Label.ForeColor = System.Drawing.Color.SaddleBrown
-        Me.尿検査2Label.Location = New System.Drawing.Point(572, 39)
-        Me.尿検査2Label.Name = "尿検査2Label"
-        Me.尿検査2Label.Size = New System.Drawing.Size(0, 22)
-        Me.尿検査2Label.TabIndex = 2
-        '
-        '尿検査Label
-        '
-        Me.尿検査Label.AutoSize = True
-        Me.尿検査Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.尿検査Label.ForeColor = System.Drawing.Color.Navy
-        Me.尿検査Label.Location = New System.Drawing.Point(454, 32)
-        Me.尿検査Label.Name = "尿検査Label"
-        Me.尿検査Label.Size = New System.Drawing.Size(0, 22)
-        Me.尿検査Label.TabIndex = 19
         '
         '情報データ7
         '
@@ -258,63 +331,6 @@ Partial Class 本人確認ダイアログ
         Me.情報ラベル1.TabIndex = 5
         Me.情報ラベル1.Text = "情報ラベル1"
         '
-        '血液検査Panel
-        '
-        Me.血液検査Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.血液検査Panel.Controls.Add(Me.採血パターンLabel)
-        Me.血液検査Panel.Location = New System.Drawing.Point(152, 32)
-        Me.血液検査Panel.Name = "血液検査Panel"
-        Me.血液検査Panel.Size = New System.Drawing.Size(236, 30)
-        Me.血液検査Panel.TabIndex = 4
-        '
-        '採血パターンLabel
-        '
-        Me.採血パターンLabel.AutoSize = True
-        Me.採血パターンLabel.ForeColor = System.Drawing.Color.Maroon
-        Me.採血パターンLabel.Location = New System.Drawing.Point(16, 6)
-        Me.採血パターンLabel.Name = "採血パターンLabel"
-        Me.採血パターンLabel.Size = New System.Drawing.Size(39, 22)
-        Me.採血パターンLabel.TabIndex = 1
-        Me.採血パターンLabel.Text = "無し"
-        '
-        'othersPanel
-        '
-        Me.othersPanel.Controls.Add(Me.その他検査Label)
-        Me.othersPanel.Location = New System.Drawing.Point(152, 87)
-        Me.othersPanel.Name = "othersPanel"
-        Me.othersPanel.Size = New System.Drawing.Size(534, 36)
-        Me.othersPanel.TabIndex = 3
-        '
-        'その他検査Label
-        '
-        Me.その他検査Label.AutoSize = True
-        Me.その他検査Label.ForeColor = System.Drawing.Color.Navy
-        Me.その他検査Label.Location = New System.Drawing.Point(3, 0)
-        Me.その他検査Label.Name = "その他検査Label"
-        Me.その他検査Label.Size = New System.Drawing.Size(183, 22)
-        Me.その他検査Label.TabIndex = 2
-        Me.その他検査Label.Text = "その他の検査はありません"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(40, 87)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(47, 19)
-        Me.Label6.TabIndex = 2
-        Me.Label6.Text = "その他"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(40, 32)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(69, 19)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = "血液検査"
-        '
         'Panel3
         '
         Me.Panel3.AutoSize = True
@@ -389,22 +405,6 @@ Partial Class 本人確認ダイアログ
         Me.キャンセルBtn.Text = "キャンセル"
         Me.キャンセルBtn.UseVisualStyleBackColor = True
         '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.尿検査2Label)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Controls.Add(Me.尿検査Label)
-        Me.GroupBox2.Controls.Add(Me.Label6)
-        Me.GroupBox2.Controls.Add(Me.othersPanel)
-        Me.GroupBox2.Controls.Add(Me.血液検査Panel)
-        Me.GroupBox2.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 292)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(701, 130)
-        Me.GroupBox2.TabIndex = 2
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "検査オプション"
-        '
         '本人確認ダイアログ
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
@@ -419,17 +419,17 @@ Partial Class 本人確認ダイアログ
         Me.Text = "本人確認ダイアログ"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.血液検査Panel.ResumeLayout(False)
-        Me.血液検査Panel.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.othersPanel.ResumeLayout(False)
         Me.othersPanel.PerformLayout()
+        Me.血液検査Panel.ResumeLayout(False)
+        Me.血液検査Panel.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
