@@ -8,6 +8,7 @@ Public Class MainForm
     Private checkupTime As DateTime = Now
     Private sumOfPatients As Integer = 0
     Private gridColData As ArrayList = New ArrayList
+    Private Const DEFAULTNUMBER As String = "XXXXX"
 
     Private searchMode As String = My.Settings.検索モード
     Public barcodeInputReady As Boolean = False
@@ -379,7 +380,7 @@ Public Class MainForm
             '--- 入力値がある場合だけ処理を継続。
             If barcodeTest <> "" Then
                 'バーコードデータの検索
-                If 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
+                If barcodeTest <> DEFAULTNUMBER AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
                     f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData)
