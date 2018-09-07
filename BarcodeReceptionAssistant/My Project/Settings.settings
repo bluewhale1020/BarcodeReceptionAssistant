@@ -26,5 +26,8 @@
     <Setting Name="出力ファイル名" Type="System.String" Scope="User">
       <Value Profile="(Default)">受付後健診簿</Value>
     </Setting>
+    <Setting Name="白紙バーコードNo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">XXXXX</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

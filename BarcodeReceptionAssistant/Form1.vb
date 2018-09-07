@@ -8,7 +8,7 @@ Public Class MainForm
     Private checkupTime As DateTime = Now
     Private sumOfPatients As Integer = 0
     Private gridColData As ArrayList = New ArrayList
-    Private Const DEFAULTNUMBER As String = "XXXXX"
+    Private defaultBarcodeNumber As String = My.Settings.白紙バーコードNo
 
     Private searchMode As String = My.Settings.検索モード
     Public barcodeInputReady As Boolean = False
@@ -64,7 +64,7 @@ Public Class MainForm
         入力カラム名Box.Text = My.Settings.入力カラム名
         検索モードBox.Text = My.Settings.検索モード
         バーコード受信方法Box.Text = My.Settings.受信方法
-
+        白紙バーコードNoBox.Text = My.Settings.白紙バーコードNo
 
     End Sub
 
@@ -92,6 +92,9 @@ Public Class MainForm
         My.Settings.入力カラム名 = 入力カラム名Box.Text
         My.Settings.検索モード = 検索モードBox.Text
         My.Settings.受信方法 = バーコード受信方法Box.Text
+        My.Settings.白紙バーコードNo = 白紙バーコードNoBox.Text
+        defaultBarcodeNumber = 白紙バーコードNoBox.Text
+
 
         MessageBox.Show("設定データを保存しました。", "保存完了", MessageBoxButtons.OK)
 
@@ -163,12 +166,15 @@ Public Class MainForm
             gridColData.Add(column.ColumnName)
         Next
 
-        検索カラム名選択を設定(gridColData)
+        カラム名選択を設定(gridColData)
     End Sub
 
-    Private Sub 検索カラム名選択を設定(ByVal gridColData As ArrayList)
+    Private Sub カラム名選択を設定(ByVal gridColData As ArrayList)
 
         検索カラム選択Box.DataSource = gridColData
+        Dim cloneColData As ArrayList
+        cloneColData = New ArrayList(gridColData)
+        フィルタカラム選択Box.DataSource = cloneColData
 
     End Sub
 
@@ -379,11 +385,12 @@ Public Class MainForm
             Dim barcodeTest As String = バーコードデータBox.Text
             '--- 入力値がある場合だけ処理を継続。
             If barcodeTest <> "" Then
+                フィルタのクリア()
                 'バーコードデータの検索
-                If barcodeTest <> DEFAULTNUMBER AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
+                If barcodeTest <> defaultBarcodeNumber AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
-                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData)
+                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, SNMnger.現在の通番を取得())
                     f2.ShowDialog(Me)
 
 
@@ -636,7 +643,7 @@ Public Class MainForm
     End Function
 
 
-    '受診者の検索
+    '受診者の検索・リストのフィルタ
     Private Sub 検索Btn_Click(sender As Object, e As EventArgs) Handles 検索Btn.Click
         データの検索()
     End Sub
@@ -644,6 +651,8 @@ Public Class MainForm
         If Me.CheckGridViewIsFilled = False Then
             Exit Sub
         End If
+
+        フィルタのクリア()
 
         Dim searchKey As String = 検索キーBox.Text
         Dim colName As String = 検索カラム選択Box.SelectedValue
@@ -712,6 +721,62 @@ Public Class MainForm
 
     End Function
 
+
+    Private Sub 絞込Btn_Click(sender As Object, e As EventArgs) Handles 絞込Btn.Click
+        フィルタを設定()
+    End Sub
+
+    Public Sub フィルタを設定()
+        If Me.CheckGridViewIsFilled = False Then
+            Exit Sub
+        End If
+
+        Dim filterKey As String = フィルタキーBox.Text
+        Dim colName As String = フィルタカラム選択Box.SelectedValue
+        Dim oper As String = フィルタ条件選択Box.Text
+
+        フィルタの実行(oper, colName, filterKey)
+
+
+    End Sub
+
+    Private Sub フィルタの実行(ByVal oper As String, ByVal colname As String, ByVal Optional filterKey As String = "")
+        Dim strFilter As String
+        If filterKey = "" Then
+            strFilter = ""
+        Else
+            Select Case oper
+                Case "と等しい"
+                    strFilter = colname + " = '" + filterKey + "'"
+                Case "を含む"
+                    strFilter = colname + " LIKE " + "'%" + filterKey + "%'"
+                Case "より大きい"
+                    If IsNumeric(filterKey) Then
+                        strFilter = colname + " > " + filterKey
+                    Else
+                        strFilter = colname + " > '" + filterKey + "'"
+                    End If
+
+                Case "より小さい"
+                    If IsNumeric(filterKey) Then
+                        strFilter = colname + " < " + filterKey
+                    Else
+                        strFilter = colname + " < '" + filterKey + "'"
+                    End If
+
+            End Select
+        End If
+
+        gridDataTable.DefaultView.RowFilter = strFilter
+
+
+
+    End Sub
+
+    Private Sub フィルタのクリア()
+
+        gridDataTable.DefaultView.RowFilter = ""
+    End Sub
 
     'ログの出力
     Private Sub ログの出力()
@@ -916,4 +981,8 @@ Public Class MainForm
         End If
     End Sub
 
+    Private Sub 絞込クリアBtn_Click(sender As Object, e As EventArgs) Handles 絞込クリアBtn.Click
+        フィルタのクリア()
+
+    End Sub
 End Class

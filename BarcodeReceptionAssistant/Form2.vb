@@ -1,7 +1,7 @@
 ﻿Public Class 本人確認ダイアログ
 
     Private thisPersonInfo As Hashtable
-    Private itemlimit As Integer = 7
+    Private itemlimit As Integer = 8
 
     Public Sub New()
 
@@ -30,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal newSerialNumber As Integer)
 
         本人情報のクリア()
 
@@ -50,13 +50,13 @@
                 Exit For
             End If
         Next
-        本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData)
+        本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData, newSerialNumber)
 
         登録情報を設定(registrationStatus)
 
     End Sub
 
-    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList)
+    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal newSerialNumber As Integer)
 
         Dim idx As Integer = 1
 
@@ -81,6 +81,8 @@
         If bloodPattern <> "" Then
             採血パターンLabel.Text = bloodPattern
         End If
+
+        通番入力ラベル.Text = Str(newSerialNumber)
 
         '尿検査オプションの表示
         尿検査表示(urinaryData)

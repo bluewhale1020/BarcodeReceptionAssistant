@@ -149,6 +149,18 @@ Namespace My
                 Me("出力ファイル名") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("XXXXX")>  _
+        Public Property 白紙バーコードNo() As String
+            Get
+                Return CType(Me("白紙バーコードNo"),String)
+            End Get
+            Set
+                Me("白紙バーコードNo") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
