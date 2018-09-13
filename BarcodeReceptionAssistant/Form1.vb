@@ -723,6 +723,7 @@ Public Class MainForm
 
 
     Private Sub 絞込Btn_Click(sender As Object, e As EventArgs) Handles 絞込Btn.Click
+
         フィルタを設定()
     End Sub
 
@@ -730,6 +731,8 @@ Public Class MainForm
         If Me.CheckGridViewIsFilled = False Then
             Exit Sub
         End If
+
+        検索のクリア()
 
         Dim filterKey As String = フィルタキーBox.Text
         Dim colName As String = フィルタカラム選択Box.SelectedValue
@@ -776,6 +779,17 @@ Public Class MainForm
     Private Sub フィルタのクリア()
 
         gridDataTable.DefaultView.RowFilter = ""
+        フィルタカラム選択Box.Text = ""
+        フィルタキーBox.Text = ""
+        フィルタ条件選択Box.Text = ""
+    End Sub
+
+    Private Sub 検索のクリア()
+        excelDataGridView.ClearSelection()
+
+        検索カラム選択Box.Text = ""
+        検索キーBox.Text = ""
+
     End Sub
 
     'ログの出力
