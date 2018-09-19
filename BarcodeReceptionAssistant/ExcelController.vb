@@ -76,7 +76,7 @@ Public Class ExcelController
                     If (cells.TryGetValue(i, c)) Then
 
                         If dateColIdcs.Contains(i + 1) Then
-                            If IsDate(c.Value) = False Then
+                            If IsDate(c.Value) = False And c.Value <> "" Then
                                 inputData = シリアル日付変換(Double.Parse(c.Value))
                             Else
                                 inputData = c.Value
