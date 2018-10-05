@@ -34,6 +34,8 @@ Partial Class 本人確認ダイアログ
         Me.血液検査Panel = New System.Windows.Forms.Panel()
         Me.採血パターンLabel = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.情報データ8 = New System.Windows.Forms.Label()
+        Me.情報ラベル8 = New System.Windows.Forms.Label()
         Me.情報データ7 = New System.Windows.Forms.Label()
         Me.情報データ6 = New System.Windows.Forms.Label()
         Me.情報データ5 = New System.Windows.Forms.Label()
@@ -49,25 +51,27 @@ Partial Class 本人確認ダイアログ
         Me.情報ラベル2 = New System.Windows.Forms.Label()
         Me.情報ラベル1 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.通番入力ラベル = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.バーコードLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.確定Btn = New System.Windows.Forms.Button()
         Me.キャンセルBtn = New System.Windows.Forms.Button()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.通番入力ラベル = New System.Windows.Forms.Label()
-        Me.情報データ8 = New System.Windows.Forms.Label()
-        Me.情報ラベル8 = New System.Windows.Forms.Label()
+        Me.情報データ9 = New System.Windows.Forms.Label()
+        Me.情報ラベル9 = New System.Windows.Forms.Label()
+        Me.尿代謝詳細Label = New System.Windows.Forms.Label()
+        Me.尿代謝Label = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.othersPanel.SuspendLayout()
         Me.血液検査Panel.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -78,11 +82,13 @@ Partial Class 本人確認ダイアログ
         Me.Panel1.Location = New System.Drawing.Point(18, 20)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(724, 433)
+        Me.Panel1.Size = New System.Drawing.Size(724, 459)
         Me.Panel1.TabIndex = 0
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.尿代謝詳細Label)
+        Me.GroupBox2.Controls.Add(Me.尿代謝Label)
         Me.GroupBox2.Controls.Add(Me.尿検査2Label)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.尿検査Label)
@@ -90,9 +96,9 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox2.Controls.Add(Me.othersPanel)
         Me.GroupBox2.Controls.Add(Me.血液検査Panel)
         Me.GroupBox2.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(13, 292)
+        Me.GroupBox2.Location = New System.Drawing.Point(13, 302)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(701, 130)
+        Me.GroupBox2.Size = New System.Drawing.Size(701, 150)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "検査オプション"
@@ -101,7 +107,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.尿検査2Label.AutoSize = True
         Me.尿検査2Label.ForeColor = System.Drawing.Color.SaddleBrown
-        Me.尿検査2Label.Location = New System.Drawing.Point(494, 37)
+        Me.尿検査2Label.Location = New System.Drawing.Point(430, 16)
         Me.尿検査2Label.Name = "尿検査2Label"
         Me.尿検査2Label.Size = New System.Drawing.Size(0, 22)
         Me.尿検査2Label.TabIndex = 2
@@ -110,7 +116,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label5.Location = New System.Drawing.Point(40, 39)
+        Me.Label5.Location = New System.Drawing.Point(27, 38)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(69, 19)
         Me.Label5.TabIndex = 1
@@ -121,7 +127,7 @@ Partial Class 本人確認ダイアログ
         Me.尿検査Label.AutoSize = True
         Me.尿検査Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.尿検査Label.ForeColor = System.Drawing.Color.Navy
-        Me.尿検査Label.Location = New System.Drawing.Point(417, 37)
+        Me.尿検査Label.Location = New System.Drawing.Point(353, 16)
         Me.尿検査Label.Name = "尿検査Label"
         Me.尿検査Label.Size = New System.Drawing.Size(0, 22)
         Me.尿検査Label.TabIndex = 19
@@ -130,7 +136,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.Label6.Location = New System.Drawing.Point(40, 87)
+        Me.Label6.Location = New System.Drawing.Point(27, 106)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(47, 19)
         Me.Label6.TabIndex = 2
@@ -139,9 +145,9 @@ Partial Class 本人確認ダイアログ
         'othersPanel
         '
         Me.othersPanel.Controls.Add(Me.その他検査Label)
-        Me.othersPanel.Location = New System.Drawing.Point(152, 87)
+        Me.othersPanel.Location = New System.Drawing.Point(112, 101)
         Me.othersPanel.Name = "othersPanel"
-        Me.othersPanel.Size = New System.Drawing.Size(534, 36)
+        Me.othersPanel.Size = New System.Drawing.Size(534, 46)
         Me.othersPanel.TabIndex = 3
         '
         'その他検査Label
@@ -149,6 +155,7 @@ Partial Class 本人確認ダイアログ
         Me.その他検査Label.AutoSize = True
         Me.その他検査Label.ForeColor = System.Drawing.Color.Navy
         Me.その他検査Label.Location = New System.Drawing.Point(3, 0)
+        Me.その他検査Label.MaximumSize = New System.Drawing.Size(500, 0)
         Me.その他検査Label.Name = "その他検査Label"
         Me.その他検査Label.Size = New System.Drawing.Size(183, 22)
         Me.その他検査Label.TabIndex = 2
@@ -158,9 +165,9 @@ Partial Class 本人確認ダイアログ
         '
         Me.血液検査Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.血液検査Panel.Controls.Add(Me.採血パターンLabel)
-        Me.血液検査Panel.Location = New System.Drawing.Point(152, 32)
+        Me.血液検査Panel.Location = New System.Drawing.Point(112, 28)
         Me.血液検査Panel.Name = "血液検査Panel"
-        Me.血液検査Panel.Size = New System.Drawing.Size(236, 30)
+        Me.血液検査Panel.Size = New System.Drawing.Size(199, 30)
         Me.血液検査Panel.TabIndex = 4
         '
         '採血パターンLabel
@@ -175,6 +182,8 @@ Partial Class 本人確認ダイアログ
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.情報データ9)
+        Me.GroupBox1.Controls.Add(Me.情報ラベル9)
         Me.GroupBox1.Controls.Add(Me.情報データ8)
         Me.GroupBox1.Controls.Add(Me.情報ラベル8)
         Me.GroupBox1.Controls.Add(Me.情報データ7)
@@ -194,16 +203,37 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(13, 92)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(701, 194)
+        Me.GroupBox1.Size = New System.Drawing.Size(701, 216)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "受診者情報"
+        '
+        '情報データ8
+        '
+        Me.情報データ8.AutoSize = True
+        Me.情報データ8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報データ8.Location = New System.Drawing.Point(488, 103)
+        Me.情報データ8.MaximumSize = New System.Drawing.Size(163, 0)
+        Me.情報データ8.Name = "情報データ8"
+        Me.情報データ8.Size = New System.Drawing.Size(82, 19)
+        Me.情報データ8.TabIndex = 20
+        Me.情報データ8.Text = "情報データ8"
+        '
+        '情報ラベル8
+        '
+        Me.情報ラベル8.AutoSize = True
+        Me.情報ラベル8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報ラベル8.Location = New System.Drawing.Point(409, 103)
+        Me.情報ラベル8.Name = "情報ラベル8"
+        Me.情報ラベル8.Size = New System.Drawing.Size(82, 19)
+        Me.情報ラベル8.TabIndex = 19
+        Me.情報ラベル8.Text = "情報ラベル8"
         '
         '情報データ7
         '
         Me.情報データ7.AutoSize = True
         Me.情報データ7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ7.Location = New System.Drawing.Point(541, 126)
+        Me.情報データ7.Location = New System.Drawing.Point(488, 66)
         Me.情報データ7.MaximumSize = New System.Drawing.Size(163, 0)
         Me.情報データ7.Name = "情報データ7"
         Me.情報データ7.Size = New System.Drawing.Size(82, 19)
@@ -214,7 +244,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ6.AutoSize = True
         Me.情報データ6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ6.Location = New System.Drawing.Point(541, 85)
+        Me.情報データ6.Location = New System.Drawing.Point(488, 29)
         Me.情報データ6.MaximumSize = New System.Drawing.Size(163, 0)
         Me.情報データ6.Name = "情報データ6"
         Me.情報データ6.Size = New System.Drawing.Size(82, 19)
@@ -225,7 +255,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ5.AutoSize = True
         Me.情報データ5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ5.Location = New System.Drawing.Point(541, 43)
+        Me.情報データ5.Location = New System.Drawing.Point(115, 179)
         Me.情報データ5.MaximumSize = New System.Drawing.Size(163, 0)
         Me.情報データ5.Name = "情報データ5"
         Me.情報データ5.Size = New System.Drawing.Size(82, 19)
@@ -236,7 +266,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ4.AutoSize = True
         Me.情報データ4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ4.Location = New System.Drawing.Point(171, 166)
+        Me.情報データ4.Location = New System.Drawing.Point(115, 142)
         Me.情報データ4.MaximumSize = New System.Drawing.Size(235, 0)
         Me.情報データ4.Name = "情報データ4"
         Me.情報データ4.Size = New System.Drawing.Size(82, 19)
@@ -247,7 +277,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ3.AutoSize = True
         Me.情報データ3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ3.Location = New System.Drawing.Point(168, 125)
+        Me.情報データ3.Location = New System.Drawing.Point(115, 103)
         Me.情報データ3.MaximumSize = New System.Drawing.Size(235, 0)
         Me.情報データ3.Name = "情報データ3"
         Me.情報データ3.Size = New System.Drawing.Size(82, 19)
@@ -258,7 +288,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ2.AutoSize = True
         Me.情報データ2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ2.Location = New System.Drawing.Point(168, 83)
+        Me.情報データ2.Location = New System.Drawing.Point(115, 64)
         Me.情報データ2.MaximumSize = New System.Drawing.Size(235, 0)
         Me.情報データ2.Name = "情報データ2"
         Me.情報データ2.Size = New System.Drawing.Size(82, 19)
@@ -269,7 +299,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報データ1.AutoSize = True
         Me.情報データ1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ1.Location = New System.Drawing.Point(168, 43)
+        Me.情報データ1.Location = New System.Drawing.Point(115, 28)
         Me.情報データ1.MaximumSize = New System.Drawing.Size(235, 0)
         Me.情報データ1.Name = "情報データ1"
         Me.情報データ1.Size = New System.Drawing.Size(82, 19)
@@ -280,7 +310,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル7.AutoSize = True
         Me.情報ラベル7.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル7.Location = New System.Drawing.Point(410, 126)
+        Me.情報ラベル7.Location = New System.Drawing.Point(409, 66)
         Me.情報ラベル7.Name = "情報ラベル7"
         Me.情報ラベル7.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル7.TabIndex = 11
@@ -290,7 +320,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル6.AutoSize = True
         Me.情報ラベル6.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル6.Location = New System.Drawing.Point(410, 85)
+        Me.情報ラベル6.Location = New System.Drawing.Point(409, 29)
         Me.情報ラベル6.Name = "情報ラベル6"
         Me.情報ラベル6.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル6.TabIndex = 10
@@ -300,7 +330,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル5.AutoSize = True
         Me.情報ラベル5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル5.Location = New System.Drawing.Point(410, 43)
+        Me.情報ラベル5.Location = New System.Drawing.Point(39, 179)
         Me.情報ラベル5.Name = "情報ラベル5"
         Me.情報ラベル5.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル5.TabIndex = 9
@@ -310,7 +340,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル4.AutoSize = True
         Me.情報ラベル4.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル4.Location = New System.Drawing.Point(40, 166)
+        Me.情報ラベル4.Location = New System.Drawing.Point(39, 142)
         Me.情報ラベル4.Name = "情報ラベル4"
         Me.情報ラベル4.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル4.TabIndex = 8
@@ -320,7 +350,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル3.AutoSize = True
         Me.情報ラベル3.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル3.Location = New System.Drawing.Point(37, 125)
+        Me.情報ラベル3.Location = New System.Drawing.Point(39, 103)
         Me.情報ラベル3.Name = "情報ラベル3"
         Me.情報ラベル3.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル3.TabIndex = 7
@@ -330,7 +360,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル2.AutoSize = True
         Me.情報ラベル2.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル2.Location = New System.Drawing.Point(37, 83)
+        Me.情報ラベル2.Location = New System.Drawing.Point(39, 64)
         Me.情報ラベル2.Name = "情報ラベル2"
         Me.情報ラベル2.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル2.TabIndex = 6
@@ -340,7 +370,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.情報ラベル1.AutoSize = True
         Me.情報ラベル1.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル1.Location = New System.Drawing.Point(37, 43)
+        Me.情報ラベル1.Location = New System.Drawing.Point(39, 28)
         Me.情報ラベル1.Name = "情報ラベル1"
         Me.情報ラベル1.Size = New System.Drawing.Size(82, 19)
         Me.情報ラベル1.TabIndex = 5
@@ -359,6 +389,37 @@ Partial Class 本人確認ダイアログ
         Me.Panel3.Size = New System.Drawing.Size(724, 86)
         Me.Panel3.TabIndex = 0
         '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel4.Controls.Add(Me.通番入力ラベル)
+        Me.Panel4.Controls.Add(Me.Label2)
+        Me.Panel4.Location = New System.Drawing.Point(518, 0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(203, 35)
+        Me.Panel4.TabIndex = 3
+        '
+        '通番入力ラベル
+        '
+        Me.通番入力ラベル.AutoSize = True
+        Me.通番入力ラベル.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.通番入力ラベル.ForeColor = System.Drawing.SystemColors.Highlight
+        Me.通番入力ラベル.Location = New System.Drawing.Point(117, 9)
+        Me.通番入力ラベル.Name = "通番入力ラベル"
+        Me.通番入力ラベル.Size = New System.Drawing.Size(45, 25)
+        Me.通番入力ラベル.TabIndex = 1
+        Me.通番入力ラベル.Text = "なし"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(3, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(92, 25)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "通番入力"
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -373,7 +434,7 @@ Partial Class 本人確認ダイアログ
         '
         Me.バーコードLabel.AutoSize = True
         Me.バーコードLabel.Font = New System.Drawing.Font("Meiryo UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.バーコードLabel.Location = New System.Drawing.Point(178, 11)
+        Me.バーコードLabel.Location = New System.Drawing.Point(125, 11)
         Me.バーコードLabel.Name = "バーコードLabel"
         Me.バーコードLabel.Size = New System.Drawing.Size(129, 24)
         Me.バーコードLabel.TabIndex = 1
@@ -393,17 +454,17 @@ Partial Class 本人確認ダイアログ
         '
         Me.Panel2.Controls.Add(Me.確定Btn)
         Me.Panel2.Controls.Add(Me.キャンセルBtn)
-        Me.Panel2.Location = New System.Drawing.Point(431, 463)
+        Me.Panel2.Location = New System.Drawing.Point(441, 476)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(301, 51)
+        Me.Panel2.Size = New System.Drawing.Size(301, 47)
         Me.Panel2.TabIndex = 1
         '
         '確定Btn
         '
         Me.確定Btn.BackColor = System.Drawing.SystemColors.HotTrack
         Me.確定Btn.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.確定Btn.Location = New System.Drawing.Point(173, 8)
+        Me.確定Btn.Location = New System.Drawing.Point(179, 4)
         Me.確定Btn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.確定Btn.Name = "確定Btn"
         Me.確定Btn.Size = New System.Drawing.Size(112, 38)
@@ -413,7 +474,7 @@ Partial Class 本人確認ダイアログ
         '
         'キャンセルBtn
         '
-        Me.キャンセルBtn.Location = New System.Drawing.Point(14, 8)
+        Me.キャンセルBtn.Location = New System.Drawing.Point(20, 4)
         Me.キャンセルBtn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.キャンセルBtn.Name = "キャンセルBtn"
         Me.キャンセルBtn.Size = New System.Drawing.Size(112, 38)
@@ -421,57 +482,46 @@ Partial Class 本人確認ダイアログ
         Me.キャンセルBtn.Text = "キャンセル"
         Me.キャンセルBtn.UseVisualStyleBackColor = True
         '
-        'Panel4
+        '情報データ9
         '
-        Me.Panel4.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel4.Controls.Add(Me.通番入力ラベル)
-        Me.Panel4.Controls.Add(Me.Label2)
-        Me.Panel4.Location = New System.Drawing.Point(518, 0)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(203, 35)
-        Me.Panel4.TabIndex = 3
+        Me.情報データ9.AutoSize = True
+        Me.情報データ9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報データ9.Location = New System.Drawing.Point(488, 142)
+        Me.情報データ9.MaximumSize = New System.Drawing.Size(163, 0)
+        Me.情報データ9.Name = "情報データ9"
+        Me.情報データ9.Size = New System.Drawing.Size(82, 19)
+        Me.情報データ9.TabIndex = 22
+        Me.情報データ9.Text = "情報データ9"
         '
-        'Label2
+        '情報ラベル9
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label2.Location = New System.Drawing.Point(3, 9)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(92, 25)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "通番入力"
+        Me.情報ラベル9.AutoSize = True
+        Me.情報ラベル9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報ラベル9.Location = New System.Drawing.Point(409, 142)
+        Me.情報ラベル9.Name = "情報ラベル9"
+        Me.情報ラベル9.Size = New System.Drawing.Size(82, 19)
+        Me.情報ラベル9.TabIndex = 21
+        Me.情報ラベル9.Text = "情報ラベル9"
         '
-        '通番入力ラベル
+        '尿代謝詳細Label
         '
-        Me.通番入力ラベル.AutoSize = True
-        Me.通番入力ラベル.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.通番入力ラベル.ForeColor = System.Drawing.SystemColors.Highlight
-        Me.通番入力ラベル.Location = New System.Drawing.Point(117, 9)
-        Me.通番入力ラベル.Name = "通番入力ラベル"
-        Me.通番入力ラベル.Size = New System.Drawing.Size(45, 25)
-        Me.通番入力ラベル.TabIndex = 1
-        Me.通番入力ラベル.Text = "なし"
+        Me.尿代謝詳細Label.AutoSize = True
+        Me.尿代謝詳細Label.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.尿代謝詳細Label.Location = New System.Drawing.Point(430, 49)
+        Me.尿代謝詳細Label.MaximumSize = New System.Drawing.Size(280, 0)
+        Me.尿代謝詳細Label.Name = "尿代謝詳細Label"
+        Me.尿代謝詳細Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿代謝詳細Label.TabIndex = 20
         '
-        '情報データ8
+        '尿代謝Label
         '
-        Me.情報データ8.AutoSize = True
-        Me.情報データ8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ8.Location = New System.Drawing.Point(541, 166)
-        Me.情報データ8.MaximumSize = New System.Drawing.Size(163, 0)
-        Me.情報データ8.Name = "情報データ8"
-        Me.情報データ8.Size = New System.Drawing.Size(82, 19)
-        Me.情報データ8.TabIndex = 20
-        Me.情報データ8.Text = "情報データ8"
-        '
-        '情報ラベル8
-        '
-        Me.情報ラベル8.AutoSize = True
-        Me.情報ラベル8.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル8.Location = New System.Drawing.Point(410, 166)
-        Me.情報ラベル8.Name = "情報ラベル8"
-        Me.情報ラベル8.Size = New System.Drawing.Size(82, 19)
-        Me.情報ラベル8.TabIndex = 19
-        Me.情報ラベル8.Text = "情報ラベル8"
+        Me.尿代謝Label.AutoSize = True
+        Me.尿代謝Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.尿代謝Label.ForeColor = System.Drawing.Color.Navy
+        Me.尿代謝Label.Location = New System.Drawing.Point(353, 49)
+        Me.尿代謝Label.Name = "尿代謝Label"
+        Me.尿代謝Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿代謝Label.TabIndex = 21
         '
         '本人確認ダイアログ
         '
@@ -497,9 +547,9 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -541,4 +591,8 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents 通番入力ラベル As Label
     Friend WithEvents 情報データ8 As Label
     Friend WithEvents 情報ラベル8 As Label
+    Friend WithEvents 情報データ9 As Label
+    Friend WithEvents 情報ラベル9 As Label
+    Friend WithEvents 尿代謝詳細Label As Label
+    Friend WithEvents 尿代謝Label As Label
 End Class

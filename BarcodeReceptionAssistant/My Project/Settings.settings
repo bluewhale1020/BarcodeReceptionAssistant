@@ -29,5 +29,19 @@
     <Setting Name="白紙バーコードNo" Type="System.String" Scope="User">
       <Value Profile="(Default)">XXXXX</Value>
     </Setting>
+    <Setting Name="ダイアローグ表示カラム" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;性別&lt;/string&gt;
+  &lt;string&gt;所属&lt;/string&gt;
+  &lt;string&gt;フリガナ&lt;/string&gt;
+  &lt;string&gt;生年月日&lt;/string&gt;
+  &lt;string&gt;年齢&lt;/string&gt;
+  &lt;string&gt;整理番号&lt;/string&gt;
+  &lt;string&gt;コース&lt;/string&gt;
+  &lt;string&gt;協会けんぽ&lt;/string&gt;
+  &lt;string&gt;備考&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

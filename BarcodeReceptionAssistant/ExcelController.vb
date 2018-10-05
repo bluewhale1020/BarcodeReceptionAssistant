@@ -13,118 +13,123 @@ Public Class ExcelController
     'Private numericCols As String() = New String() {"整理番号"}
 
     Public Function ファイルのロード(ByVal filePath As String)
+        'ファイルストリーム作成
+        Using fs As FileStream = New FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
 
-        Try
-            'ファイルストリーム作成
-            Dim fs As FileStream = New FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-            '読み取り専用で開く
-            objBook = New XLWorkbook(fs, XLEventTracking.Disabled)
-            'objBook = New XLWorkbook(filePath)
-            objSheet = objBook.Worksheets.Worksheet(1)
+            Try
 
-            inputFileName = filePath
+                '読み取り専用で開く
+                objBook = New XLWorkbook(fs, XLEventTracking.Disabled)
+                'objBook = New XLWorkbook(filePath)
+                objSheet = objBook.Worksheets.Worksheet(1)
 
-            dtable = New Data.DataTable("gridData")
-            Dim dateColIdcs As ArrayList = New ArrayList
+                inputFileName = filePath
+
+                dtable = New Data.DataTable("gridData")
+                Dim dateColIdcs As ArrayList = New ArrayList
 
 
-            Dim noReceptionData As Boolean = False
-            Dim header As IXLRow = objSheet.Row(1)
+                Dim noReceptionData As Boolean = False
+                Dim header As IXLRow = objSheet.Row(1)
 
-            If カラム名検索("受付時間", header) = 0 Then
-                noReceptionData = True
-                '先頭に受付時間カラムを追加
-                dtable.Columns.Add("受付時間")
-            End If
-
-            For colnum = 1 To header.CellsUsed.Count
-                If rx_date.IsMatch(header.Cell(colnum).Value) Then
-                    dateColIdcs.Add(colnum)
+                If カラム名検索("受付時間", header) = 0 Then
+                    noReceptionData = True
+                    '先頭に受付時間カラムを追加
+                    dtable.Columns.Add("受付時間")
                 End If
 
-                dtable.Columns.Add(New DataColumn(header.Cell(colnum).Value, GetType(String)))
+                For colnum = 1 To header.CellsUsed.Count
+                    If rx_date.IsMatch(header.Cell(colnum).Value) Then
+                        dateColIdcs.Add(colnum)
+                    End If
+
+                    dtable.Columns.Add(New DataColumn(header.Cell(colnum).Value, GetType(String)))
 
 
 
-            Next
+                Next
 
-            Dim rows As IXLRows = objSheet.RowsUsed
-            Dim rowidx As Integer = 1
-            'Dim lastrowidx As Integer = objSheet.RowsUsed.Count
-            For Each row In rows
+                Dim rows As IXLRows = objSheet.RowsUsed
+                Dim rowidx As Integer = 1
+                'Dim lastrowidx As Integer = objSheet.RowsUsed.Count
+                For Each row In rows
 
-                If rowidx = 1 Then
-                    rowidx += 1
-                    Continue For
-                End If
+                    If rowidx = 1 Then
+                        rowidx += 1
+                        Continue For
+                    End If
 
-                Dim drow As DataRow = dtable.NewRow()
+                    Dim drow As DataRow = dtable.NewRow()
 
-                Dim cells = row.Cells.ToDictionary(
-        Function(cell) ConvertCellReferenceToNumber(cell.Address.ToInvariantString),
-        Function(cell) cell)
+                    Dim cells = row.Cells.ToDictionary(
+            Function(cell) ConvertCellReferenceToNumber(cell.Address.ToInvariantString),
+            Function(cell) cell)
 
-                If noReceptionData = True Then
-                    '先頭に受付時間データを追加
-                    drow(0) = ""
-                End If
+                    If noReceptionData = True Then
+                        '先頭に受付時間データを追加
+                        drow(0) = ""
+                    End If
 
 
-                For i = 0 To cells.Keys.Max()
-                    Dim c As IXLCell
-                    Dim inputData As String = ""
-                    If (cells.TryGetValue(i, c)) Then
+                    For i = 0 To cells.Keys.Max()
+                        Dim c As IXLCell
+                        Dim inputData As String = ""
+                        If (cells.TryGetValue(i, c)) Then
 
-                        If dateColIdcs.Contains(i + 1) Then
-                            If IsDate(c.Value) = False And c.Value <> "" Then
-                                inputData = シリアル日付変換(Double.Parse(c.Value))
+                            If dateColIdcs.Contains(i + 1) Then
+                                If IsDate(c.Value) = False And c.Value <> "" Then
+                                    inputData = シリアル日付変換(Double.Parse(c.Value))
+                                Else
+                                    inputData = c.Value
+
+                                End If
+
+
+
                             Else
                                 inputData = c.Value
 
                             End If
 
 
+                            'Console.WriteLine(c.CellValue) 'need hanle for special values 
+                            'Else
+                            '    drow(i + 1) = ""
+                            'Console.WriteLine("empty")
+                        End If
 
+                        If noReceptionData = True Then
+                            drow(i + 1) = inputData
                         Else
-                            inputData = c.Value
-
+                            drow(i) = inputData
                         End If
 
 
-                        'Console.WriteLine(c.CellValue) 'need hanle for special values 
-                        'Else
-                        '    drow(i + 1) = ""
-                        'Console.WriteLine("empty")
-                    End If
+                    Next
 
-                    If noReceptionData = True Then
-                        drow(i + 1) = inputData
-                    Else
-                        drow(i) = inputData
-                    End If
-
+                    dtable.Rows.Add(drow)
 
                 Next
 
-                dtable.Rows.Add(drow)
 
-            Next
+                'Return dtable
+            Catch ex As Exception
+                MessageBox.Show("指定のファイルを開けませんでした。", "ファイルのロードエラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                dtable = Nothing
 
-
-
-            'Return dtable
-        Catch ex As Exception
-            MessageBox.Show("指定のファイルを開けませんでした。", "ファイルのロードエラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            dtable = Nothing
-
-        Finally
-            If objBook IsNot Nothing Then
-                objSheet = Nothing
-                objBook.Dispose()
-            End If
+            Finally
+                If objBook IsNot Nothing Then
+                    objSheet = Nothing
+                    objBook.Dispose()
 
 
-        End Try
+                End If
+
+
+            End Try
+
+        End Using
+
 
         Return dtable
 

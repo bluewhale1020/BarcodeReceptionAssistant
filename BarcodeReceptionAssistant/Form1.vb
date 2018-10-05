@@ -16,14 +16,18 @@ Public Class MainForm
     Private outputPath As String = My.Settings.出力先パス 'IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "outputdata.xlsx")
     Public confirmed As Boolean
 
-    '通番印字　書式
+    '通番印字　書式 
+
+
     Private Const SNumberDigit = 5
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"便", "胃部", "眼底", "代", "心電図", "胸部X線", "血圧", "尿沈渣", "ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "肺活量", "握力", "じん肺", "鉛", "電離", "インジウム"}
+    Private optionColNames As Array = {"腹囲", "視力", "聴力", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ホルムアルデヒド", "じん肺", "鉛", "電離", "インジウム"}
     Private bloodColName As String = "血液検査"
     Private urinaryColNames As Array = {"尿検査", "尿検査2"}
+    Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ"}
+    Private dispPersonInfo As StringCollection = My.Settings.ダイアローグ表示カラム
 
     'クラスオブジェクト
     Public excelCn As ExcelController
@@ -390,7 +394,8 @@ Public Class MainForm
                 If barcodeTest <> defaultBarcodeNumber AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
-                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), gridColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, SNMnger.現在の通番を取得())
+                    Dim filteredColData As ArrayList = filterColDataForDisplay()
+                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), filteredColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, getUrinaryMetaboliteData, SNMnger.現在の通番を取得())
                     f2.ShowDialog(Me)
 
 
@@ -408,6 +413,33 @@ Public Class MainForm
             End If
         End If
     End Sub
+
+    Private Function filterColDataForDisplay()
+
+        Dim filterColData As New ArrayList
+        Dim dispPersonArray As New ArrayList
+
+        For Each item As String In dispPersonInfo
+            dispPersonArray.Add(item)
+        Next
+
+        For Each colName In gridColData
+
+            If dispPersonArray.Contains(colName) Then
+
+                filterColData.Add(colName)
+
+            End If
+
+
+        Next
+
+        Return filterColData
+
+    End Function
+
+
+
     Private Function getOptionItems()
         Dim optionItems As ArrayList = New ArrayList
         Dim idx As Integer = 0
@@ -417,11 +449,18 @@ Public Class MainForm
             Dim strVal As String = Convert.ToString(item.Value)
 
             If strVal <> "" AndAlso Array.IndexOf(optionColNames, colName) <> -1 Then
-                optionItems.Add(colName)
+
+                '聴力の場合は、種類を加える
+                If colName = "聴力" Then
+                    optionItems.Add(colName + strVal)
+                Else
+                    optionItems.Add(colName)
+                End If
+
             End If
 
 
-            idx += 1
+                idx += 1
 
         Next
 
@@ -478,6 +517,33 @@ Public Class MainForm
         Next
 
         Return urinaryData
+
+    End Function
+
+    Private Function getUrinaryMetaboliteData()
+
+        Dim urinaryMetaboliteData As ArrayList = New ArrayList
+        Dim idx As Integer = 0
+
+
+        For Each item In excelDataGridView.SelectedRows.Item(0).Cells
+            Dim colName As String = excelDataGridView.Columns(idx).Name
+
+            Dim strVal As String = Convert.ToString(item.Value)
+
+            If strVal <> "" AndAlso Array.IndexOf(urinaryMetaboliteColNames, colName) <> -1 Then
+
+                urinaryMetaboliteData.Add(colName)
+
+
+            End If
+
+
+            idx += 1
+
+        Next
+
+        Return urinaryMetaboliteData
 
     End Function
 
@@ -686,7 +752,7 @@ Public Class MainForm
         Dim hasData As Boolean = False
         Dim resultIndex As Int32 = 0
         For i As Integer = 0 To dgrid.RowCount - 1
-            Dim inputString As String = dgrid.Rows(i).Cells(colName).Value
+            Dim inputString As String = Convert.ToString(dgrid.Rows(i).Cells(colName).Value)
             Select Case mode
                 Case "全文一致"
                     If searchKey = inputString Then

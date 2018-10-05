@@ -1,7 +1,7 @@
 ﻿Public Class 本人確認ダイアログ
 
     Private thisPersonInfo As Hashtable
-    Private itemlimit As Integer = 8
+    Private itemlimit As Integer = 9
 
     Public Sub New()
 
@@ -30,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal newSerialNumber As Integer)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer)
 
         本人情報のクリア()
 
@@ -50,13 +50,13 @@
                 Exit For
             End If
         Next
-        本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData, newSerialNumber)
+        本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData, urinaryMetaboliteData, newSerialNumber)
 
         登録情報を設定(registrationStatus)
 
     End Sub
 
-    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal newSerialNumber As Integer)
+    Private Sub 本人情報の表示(ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer)
 
         Dim idx As Integer = 1
 
@@ -86,7 +86,8 @@
 
         '尿検査オプションの表示
         尿検査表示(urinaryData)
-
+        '尿代謝オプションの表示
+        尿代謝表示(urinaryMetaboliteData)
 
         検査オプション項目表示(optionItems)
     End Sub
@@ -103,6 +104,24 @@
             尿検査2Label.Text = urinaryData(1)
 
         End If
+
+    End Sub
+
+    Private Sub 尿代謝表示(ByVal urinaryMetaboliteData As ArrayList)
+
+        If urinaryMetaboliteData.Count > 0 Then
+
+            尿代謝Label.Text = "☑尿代謝"
+
+            尿代謝詳細Label.Text = String.Join(" ・ ", urinaryMetaboliteData.ToArray)
+
+        Else
+            尿代謝Label.Text = ""
+
+            尿代謝詳細Label.Text = ""
+
+        End If
+
 
     End Sub
 
