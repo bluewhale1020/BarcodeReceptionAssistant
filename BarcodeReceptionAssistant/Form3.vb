@@ -16,7 +16,7 @@
         登録のキャンセル()
         Me.Close()
         CType(Me.Owner, MainForm).新規登録処理(バーコードデータLabel.Text)
-        Me.Dispose()
+
     End Sub
 
 

@@ -833,6 +833,8 @@ Public Class MainForm
                         strFilter = colname + " < '" + filterKey + "'"
                     End If
 
+                Case Else
+                    strFilter = ""
             End Select
         End If
 
