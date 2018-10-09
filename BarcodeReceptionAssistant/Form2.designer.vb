@@ -25,6 +25,8 @@ Partial Class 本人確認ダイアログ
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(本人確認ダイアログ))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.尿代謝詳細Label = New System.Windows.Forms.Label()
+        Me.尿代謝Label = New System.Windows.Forms.Label()
         Me.尿検査2Label = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.尿検査Label = New System.Windows.Forms.Label()
@@ -34,6 +36,8 @@ Partial Class 本人確認ダイアログ
         Me.血液検査Panel = New System.Windows.Forms.Panel()
         Me.採血パターンLabel = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.情報データ9 = New System.Windows.Forms.Label()
+        Me.情報ラベル9 = New System.Windows.Forms.Label()
         Me.情報データ8 = New System.Windows.Forms.Label()
         Me.情報ラベル8 = New System.Windows.Forms.Label()
         Me.情報データ7 = New System.Windows.Forms.Label()
@@ -60,10 +64,6 @@ Partial Class 本人確認ダイアログ
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.確定Btn = New System.Windows.Forms.Button()
         Me.キャンセルBtn = New System.Windows.Forms.Button()
-        Me.情報データ9 = New System.Windows.Forms.Label()
-        Me.情報ラベル9 = New System.Windows.Forms.Label()
-        Me.尿代謝詳細Label = New System.Windows.Forms.Label()
-        Me.尿代謝Label = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.othersPanel.SuspendLayout()
@@ -102,6 +102,26 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "検査オプション"
+        '
+        '尿代謝詳細Label
+        '
+        Me.尿代謝詳細Label.AutoSize = True
+        Me.尿代謝詳細Label.ForeColor = System.Drawing.Color.SaddleBrown
+        Me.尿代謝詳細Label.Location = New System.Drawing.Point(430, 49)
+        Me.尿代謝詳細Label.MaximumSize = New System.Drawing.Size(280, 0)
+        Me.尿代謝詳細Label.Name = "尿代謝詳細Label"
+        Me.尿代謝詳細Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿代謝詳細Label.TabIndex = 20
+        '
+        '尿代謝Label
+        '
+        Me.尿代謝Label.AutoSize = True
+        Me.尿代謝Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.尿代謝Label.ForeColor = System.Drawing.Color.Navy
+        Me.尿代謝Label.Location = New System.Drawing.Point(353, 49)
+        Me.尿代謝Label.Name = "尿代謝Label"
+        Me.尿代謝Label.Size = New System.Drawing.Size(0, 22)
+        Me.尿代謝Label.TabIndex = 21
         '
         '尿検査2Label
         '
@@ -208,6 +228,27 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "受診者情報"
         '
+        '情報データ9
+        '
+        Me.情報データ9.AutoSize = True
+        Me.情報データ9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報データ9.Location = New System.Drawing.Point(488, 142)
+        Me.情報データ9.MaximumSize = New System.Drawing.Size(163, 0)
+        Me.情報データ9.Name = "情報データ9"
+        Me.情報データ9.Size = New System.Drawing.Size(82, 19)
+        Me.情報データ9.TabIndex = 22
+        Me.情報データ9.Text = "情報データ9"
+        '
+        '情報ラベル9
+        '
+        Me.情報ラベル9.AutoSize = True
+        Me.情報ラベル9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報ラベル9.Location = New System.Drawing.Point(409, 142)
+        Me.情報ラベル9.Name = "情報ラベル9"
+        Me.情報ラベル9.Size = New System.Drawing.Size(82, 19)
+        Me.情報ラベル9.TabIndex = 21
+        Me.情報ラベル9.Text = "情報ラベル9"
+        '
         '情報データ8
         '
         Me.情報データ8.AutoSize = True
@@ -254,11 +295,12 @@ Partial Class 本人確認ダイアログ
         '情報データ5
         '
         Me.情報データ5.AutoSize = True
-        Me.情報データ5.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ5.Location = New System.Drawing.Point(115, 179)
+        Me.情報データ5.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.情報データ5.ForeColor = System.Drawing.Color.Teal
+        Me.情報データ5.Location = New System.Drawing.Point(114, 173)
         Me.情報データ5.MaximumSize = New System.Drawing.Size(163, 0)
         Me.情報データ5.Name = "情報データ5"
-        Me.情報データ5.Size = New System.Drawing.Size(82, 19)
+        Me.情報データ5.Size = New System.Drawing.Size(116, 25)
         Me.情報データ5.TabIndex = 16
         Me.情報データ5.Text = "情報データ5"
         '
@@ -481,47 +523,6 @@ Partial Class 本人確認ダイアログ
         Me.キャンセルBtn.TabIndex = 0
         Me.キャンセルBtn.Text = "キャンセル"
         Me.キャンセルBtn.UseVisualStyleBackColor = True
-        '
-        '情報データ9
-        '
-        Me.情報データ9.AutoSize = True
-        Me.情報データ9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報データ9.Location = New System.Drawing.Point(488, 142)
-        Me.情報データ9.MaximumSize = New System.Drawing.Size(163, 0)
-        Me.情報データ9.Name = "情報データ9"
-        Me.情報データ9.Size = New System.Drawing.Size(82, 19)
-        Me.情報データ9.TabIndex = 22
-        Me.情報データ9.Text = "情報データ9"
-        '
-        '情報ラベル9
-        '
-        Me.情報ラベル9.AutoSize = True
-        Me.情報ラベル9.Font = New System.Drawing.Font("Meiryo UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.情報ラベル9.Location = New System.Drawing.Point(409, 142)
-        Me.情報ラベル9.Name = "情報ラベル9"
-        Me.情報ラベル9.Size = New System.Drawing.Size(82, 19)
-        Me.情報ラベル9.TabIndex = 21
-        Me.情報ラベル9.Text = "情報ラベル9"
-        '
-        '尿代謝詳細Label
-        '
-        Me.尿代謝詳細Label.AutoSize = True
-        Me.尿代謝詳細Label.ForeColor = System.Drawing.Color.SaddleBrown
-        Me.尿代謝詳細Label.Location = New System.Drawing.Point(430, 49)
-        Me.尿代謝詳細Label.MaximumSize = New System.Drawing.Size(280, 0)
-        Me.尿代謝詳細Label.Name = "尿代謝詳細Label"
-        Me.尿代謝詳細Label.Size = New System.Drawing.Size(0, 22)
-        Me.尿代謝詳細Label.TabIndex = 20
-        '
-        '尿代謝Label
-        '
-        Me.尿代謝Label.AutoSize = True
-        Me.尿代謝Label.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.尿代謝Label.ForeColor = System.Drawing.Color.Navy
-        Me.尿代謝Label.Location = New System.Drawing.Point(353, 49)
-        Me.尿代謝Label.Name = "尿代謝Label"
-        Me.尿代謝Label.Size = New System.Drawing.Size(0, 22)
-        Me.尿代謝Label.TabIndex = 21
         '
         '本人確認ダイアログ
         '
