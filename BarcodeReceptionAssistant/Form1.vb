@@ -859,34 +859,44 @@ Public Class MainForm
                 Case "を含む"
                     strFilter = colname + " LIKE " + "'%" + filterKey + "%'"
                 Case "より大きい"
-                    If IsNumeric(filterKey) Then
-                        If colname = My.Settings.入力カラム名 AndAlso 整理番号の書式をチェック(filterKey) = False Then
-                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式で入力して下さい。", "入力書式エラー", vbOKOnly)
+                    If colname = My.Settings.入力カラム名 Then
+                        If 整理番号の書式をチェック(filterKey) = False Then
+                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式[5桁で左０埋め]で入力して下さい。", "入力書式エラー", vbOKOnly)
                             Exit Sub
                         Else
                             strFilter = colname + " > '" + filterKey + "'"
+
                         End If
 
+                    ElseIf IsNumeric(filterKey) Then
+                        strFilter = colname + " > '" + filterKey + "'"
+
                     Else
-                        'strFilter = "Convert (" + colname + ",'System.Int32')  > " + filterKey + "'"
                         MessageBox.Show(Me, "大小比較は、数値を入力して下さい。", "非数値エラー", vbOKOnly)
                         Exit Sub
                     End If
 
+
+
+
                 Case "より小さい"
-                    If IsNumeric(filterKey) Then
-                        If colname = My.Settings.入力カラム名 AndAlso 整理番号の書式をチェック(filterKey) = False Then
-                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式で入力して下さい。", "入力書式エラー", vbOKOnly)
+                    If colname = My.Settings.入力カラム名 Then
+                        If 整理番号の書式をチェック(filterKey) = False Then
+                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式[5桁で左０埋め]で入力して下さい。", "入力書式エラー", vbOKOnly)
                             Exit Sub
                         Else
                             strFilter = colname + " < '" + filterKey + "'"
+
                         End If
 
+                    ElseIf IsNumeric(filterKey) Then
+                        strFilter = colname + " < '" + filterKey + "'"
+
                     Else
-                        'strFilter = "Convert (" + colname + ",'System.Int32')  > " + filterKey + "'"
                         MessageBox.Show(Me, "大小比較は、数値を入力して下さい。", "非数値エラー", vbOKOnly)
                         Exit Sub
                     End If
+
 
 
                 Case Else

@@ -43,8 +43,8 @@ Public Class ExcelController
                         dateColIdcs.Add(colnum)
                     End If
 
-                    dtable.Columns.Add(New DataColumn(header.Cell(colnum).Value, GetType(String)))
 
+                    dtable.Columns.Add(New DataColumn(header.Cell(colnum).Value, GetType(String)))
 
 
                 Next
