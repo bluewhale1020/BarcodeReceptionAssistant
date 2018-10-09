@@ -353,6 +353,45 @@ Public Class MainForm
         End If
     End Sub
 
+
+    'Private Sub excelDataGridView_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles excelDataGridView.CellFormatting
+    '    Dim colName As String = excelDataGridView.Columns(e.ColumnIndex).Name
+
+    '    If Not e.Value Is Nothing Then
+    '        If e.Value.ToString() <> "" And colName = My.Settings.入力カラム名 Then
+    '            If 整理番号の書式をチェック(e.Value.ToString()) = False Then
+
+    '                e.Value = 右を0で埋める(Integer.Parse(e.Value.ToString()))
+
+
+    '            End If
+
+    '        End If
+    '        e.FormattingApplied = True
+    '    End If
+
+
+
+    'End Sub
+
+    'Private Sub excelDataGridView_CellParsing(sender As Object, e As DataGridViewCellParsingEventArgs) Handles excelDataGridView.CellParsing
+
+    '    Dim colName As String = excelDataGridView.Columns(e.ColumnIndex).Name
+
+    '    If e.Value.ToString() <> "" And colName = My.Settings.入力カラム名 Then
+    '        'If 整理番号の書式をチェック(e.Value.ToString()) = False Then
+    '        'If excelDataGridView.EditingControl IsNot Nothing Then
+    '        e.Value = Integer.Parse(e.Value.ToString())
+    '        'End If
+
+    '        'End If
+
+    '    End If
+
+    '    e.ParsingApplied = True
+    'End Sub
+
+
     Private Function 通番重複データのチェック(ByVal cellVal As String)
 
         If IsNumeric(cellVal) Then
@@ -675,19 +714,19 @@ Public Class MainForm
         If useDTable Then
 
             Dim rowIdx As Int32 = tRowIdx
-            If editTableRow(gridDataTable, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then
+            If editTableRow(gridDataTable, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then '右を0で埋める(currentNumber)
                 'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
                 Return True
-        Else
-            Return False
+            Else
+                Return False
         End If
         Else
         Dim rowIdx As Int32 = excelDataGridView.SelectedRows.Item(0).Index
-        If editGridCell(excelDataGridView, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then
-            'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
-            Return True
-        Else
-            Return False
+            If editGridCell(excelDataGridView, My.Settings.入力カラム名, rowIdx, 右を0で埋める(currentNumber)) Then '右を0で埋める(currentNumber)
+                'editGridCell(excelDataGridView, "受付時間", rowIdx, strTime) And
+                Return True
+            Else
+                Return False
         End If
         End If
 
@@ -821,23 +860,40 @@ Public Class MainForm
                     strFilter = colname + " LIKE " + "'%" + filterKey + "%'"
                 Case "より大きい"
                     If IsNumeric(filterKey) Then
-                        strFilter = colname + " > " + filterKey
+                        If colname = My.Settings.入力カラム名 AndAlso 整理番号の書式をチェック(filterKey) = False Then
+                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式で入力して下さい。", "入力書式エラー", vbOKOnly)
+                            Exit Sub
+                        Else
+                            strFilter = colname + " > '" + filterKey + "'"
+                        End If
+
                     Else
-                        strFilter = colname + " > '" + filterKey + "'"
+                        'strFilter = "Convert (" + colname + ",'System.Int32')  > " + filterKey + "'"
+                        MessageBox.Show(Me, "大小比較は、数値を入力して下さい。", "非数値エラー", vbOKOnly)
+                        Exit Sub
                     End If
 
                 Case "より小さい"
                     If IsNumeric(filterKey) Then
-                        strFilter = colname + " < " + filterKey
+                        If colname = My.Settings.入力カラム名 AndAlso 整理番号の書式をチェック(filterKey) = False Then
+                            MessageBox.Show(Me, My.Settings.入力カラム名 + "は、既定の書式で入力して下さい。", "入力書式エラー", vbOKOnly)
+                            Exit Sub
+                        Else
+                            strFilter = colname + " < '" + filterKey + "'"
+                        End If
+
                     Else
-                        strFilter = colname + " < '" + filterKey + "'"
+                        'strFilter = "Convert (" + colname + ",'System.Int32')  > " + filterKey + "'"
+                        MessageBox.Show(Me, "大小比較は、数値を入力して下さい。", "非数値エラー", vbOKOnly)
+                        Exit Sub
                     End If
+
 
                 Case Else
                     strFilter = ""
             End Select
         End If
-
+        'strFilter = "CONVERT(ISNULL(整理番号,0),'System.Int32') > 10"
         gridDataTable.DefaultView.RowFilter = strFilter
 
 
@@ -1067,4 +1123,6 @@ Public Class MainForm
         フィルタのクリア()
 
     End Sub
+
+
 End Class

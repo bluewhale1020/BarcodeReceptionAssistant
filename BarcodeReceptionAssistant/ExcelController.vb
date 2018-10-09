@@ -77,7 +77,7 @@ Public Class ExcelController
                         If (cells.TryGetValue(i, c)) Then
 
                             If dateColIdcs.Contains(i + 1) Then
-                                If IsDate(c.Value) = False And c.Value <> "" Then
+                                If IsDate(c.Value) = False AndAlso c.Value <> "" Then
                                     inputData = シリアル日付変換(Double.Parse(c.Value))
                                 Else
                                     inputData = c.Value
@@ -109,12 +109,13 @@ Public Class ExcelController
 
                     dtable.Rows.Add(drow)
 
+                    rowidx += 1
                 Next
 
 
                 'Return dtable
             Catch ex As Exception
-                MessageBox.Show("指定のファイルを開けませんでした。", "ファイルのロードエラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("指定のファイルを開けませんでした。" + ex.Message, "ファイルのロードエラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 dtable = Nothing
 
             Finally

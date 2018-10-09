@@ -36,6 +36,7 @@ Partial Class MainForm
         Me.受付人数Label = New System.Windows.Forms.Label()
         Me.messageLabel = New System.Windows.Forms.Label()
         Me.レコード検索Page = New System.Windows.Forms.TabPage()
+        Me.絞込クリアBtn = New System.Windows.Forms.Button()
         Me.フィルタ条件選択Box = New System.Windows.Forms.ComboBox()
         Me.フィルタカラム選択Box = New System.Windows.Forms.ComboBox()
         Me.フィルタキーBox = New System.Windows.Forms.TextBox()
@@ -73,7 +74,6 @@ Partial Class MainForm
         Me.excelDataGridView = New System.Windows.Forms.DataGridView()
         Me.grdDataSet = New System.Data.DataSet()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.絞込クリアBtn = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -263,6 +263,19 @@ Partial Class MainForm
         Me.レコード検索Page.TabIndex = 1
         Me.レコード検索Page.Text = "レコード検索"
         '
+        '絞込クリアBtn
+        '
+        Me.絞込クリアBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.絞込クリアBtn.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.絞込クリアBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.絞込クリアBtn.Location = New System.Drawing.Point(977, 166)
+        Me.絞込クリアBtn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.絞込クリアBtn.Name = "絞込クリアBtn"
+        Me.絞込クリアBtn.Size = New System.Drawing.Size(114, 43)
+        Me.絞込クリアBtn.TabIndex = 21
+        Me.絞込クリアBtn.Text = "クリア"
+        Me.絞込クリアBtn.UseVisualStyleBackColor = False
+        '
         'フィルタ条件選択Box
         '
         Me.フィルタ条件選択Box.FormattingEnabled = True
@@ -359,10 +372,10 @@ Partial Class MainForm
         Me.データ出力Page.Controls.Add(Me.エクセルファイル出力Btn)
         Me.データ出力Page.Controls.Add(Me.OutputFilePathBox)
         Me.データ出力Page.Controls.Add(Me.Label5)
-        Me.データ出力Page.Location = New System.Drawing.Point(4, 34)
+        Me.データ出力Page.Location = New System.Drawing.Point(4, 25)
         Me.データ出力Page.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.データ出力Page.Name = "データ出力Page"
-        Me.データ出力Page.Size = New System.Drawing.Size(1156, 237)
+        Me.データ出力Page.Size = New System.Drawing.Size(1156, 246)
         Me.データ出力Page.TabIndex = 2
         Me.データ出力Page.Text = "データ出力"
         '
@@ -431,10 +444,10 @@ Partial Class MainForm
         Me.設定Page.Controls.Add(Me.Label7)
         Me.設定Page.Controls.Add(Me.通番開始番号Box)
         Me.設定Page.Controls.Add(Me.Label6)
-        Me.設定Page.Location = New System.Drawing.Point(4, 34)
+        Me.設定Page.Location = New System.Drawing.Point(4, 25)
         Me.設定Page.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.設定Page.Name = "設定Page"
-        Me.設定Page.Size = New System.Drawing.Size(1156, 237)
+        Me.設定Page.Size = New System.Drawing.Size(1156, 246)
         Me.設定Page.TabIndex = 3
         Me.設定Page.Text = "設定"
         '
@@ -645,19 +658,6 @@ Partial Class MainForm
         'grdDataSet
         '
         Me.grdDataSet.DataSetName = "NewDataSet"
-        '
-        '絞込クリアBtn
-        '
-        Me.絞込クリアBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.絞込クリアBtn.Font = New System.Drawing.Font("Meiryo UI", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
-        Me.絞込クリアBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.絞込クリアBtn.Location = New System.Drawing.Point(977, 166)
-        Me.絞込クリアBtn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.絞込クリアBtn.Name = "絞込クリアBtn"
-        Me.絞込クリアBtn.Size = New System.Drawing.Size(114, 43)
-        Me.絞込クリアBtn.TabIndex = 21
-        Me.絞込クリアBtn.Text = "クリア"
-        Me.絞込クリアBtn.UseVisualStyleBackColor = False
         '
         'MainForm
         '
