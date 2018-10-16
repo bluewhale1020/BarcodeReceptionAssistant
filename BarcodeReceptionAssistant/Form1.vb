@@ -342,7 +342,16 @@ Public Class MainForm
 
                 ElseIf 整理番号の書式をチェック(cellVal) = False Then
                     If excelDataGridView.EditingControl IsNot Nothing Then
-                        excelDataGridView.EditingControl.Text = 右を0で埋める(Integer.Parse(cellVal))
+
+                        If IsNumeric(cellVal) Then
+                            excelDataGridView.EditingControl.Text = 右を0で埋める(Integer.Parse(cellVal))
+                        Else
+
+                            excelDataGridView.EditingControl.Text = oldSNumber
+                            displayInappropriateSNumberAlert()
+                            SendKeys.Send("{UP}")
+                        End If
+
                     End If
 
                 End If
@@ -1064,6 +1073,15 @@ Public Class MainForm
             Panel1.BackColor = Color.Salmon
         End If
     End Sub
+
+    Private Sub displayInappropriateSNumberAlert()
+        If CheckGridViewIsFilled Then
+            messageLabel.Text = "セルに数字以外が入力されています。補足事項は備考欄に入力して下さい。"
+            Panel1.BackColor = Color.Salmon
+        End If
+    End Sub
+
+
 
     Private Sub MainForm_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
         '--- Windowがフォーカスを失ったら、処理継続不可能を示すメッセージを表示
