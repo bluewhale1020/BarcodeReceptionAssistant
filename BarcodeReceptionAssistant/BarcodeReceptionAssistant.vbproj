@@ -81,7 +81,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\BarcodeAssistant2-1.ico</ApplicationIcon>
+    <ApplicationIcon>BarcodeAssistant.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.92.1.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
@@ -178,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BarcodeReceptionAssistant_TemporaryKey.pfx" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -204,7 +208,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BarcodeAssistant.ico" />
-    <None Include="Resources\BarcodeAssistant2-1.ico" />
     <None Include="Resources\BarcodeAssistant.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
