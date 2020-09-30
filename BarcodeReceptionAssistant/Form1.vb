@@ -26,7 +26,7 @@ Public Class MainForm
     Private optionColNames As Array = {"腹囲", "視力", "聴力", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ホルムアルデヒド", "じん肺", "鉛", "電離", "インジウム"}
     Private bloodColName As String = "血液検査"
     Private urinaryColNames As Array = {"尿検査", "尿検査2"}
-    Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ"}
+    Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "スチレン代謝物"}
     Private dispPersonInfo As StringCollection = My.Settings.ダイアローグ表示カラム
 
     'クラスオブジェクト
