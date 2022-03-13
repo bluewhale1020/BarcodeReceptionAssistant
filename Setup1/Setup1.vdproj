@@ -15,19 +15,25 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_4059D5170B8A25971926EB6D907153F2"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "MsmKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_725DE5532AFD42D99A0E6F6DA1208D1A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7421AC4F5E1E6A6FF507D9A1BB1A5D52"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7984CB167B834F4E8A50B34BB97EB96E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_B2C665E9B5665D45D182C8F9EAC6E97B"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,13 +64,13 @@
         "Entry"
         {
         "MsmKey" = "8:_C1E38311A2FAA6925BDE026FDD1D8A5F"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_E280CC8140516F13D5646393260D5CDD"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,19 +82,13 @@
         "Entry"
         {
         "MsmKey" = "8:_F8CC629DA4A5DBF3768A88C338DCC21D"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4059D5170B8A25971926EB6D907153F2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_52210CDB8F7545A7A9808375A44E6263"
+        "OwnerKey" = "8:_421A50BE92CD4551A921720DE59A9FBD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -115,6 +115,12 @@
         "OwnerKey" = "8:_C1E38311A2FAA6925BDE026FDD1D8A5F"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7421AC4F5E1E6A6FF507D9A1BB1A5D52"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -133,6 +139,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -149,6 +163,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -178,14 +208,34 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4059D5170B8A25971926EB6D907153F2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_725DE5532AFD42D99A0E6F6DA1208D1A"
+            {
+            "SourcePath" = "8:..\\健診簿見本.xlsx"
+            "TargetName" = "8:健診簿見本.xlsx"
+            "Tag" = "8:"
+            "Folder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7421AC4F5E1E6A6FF507D9A1BB1A5D52"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_4059D5170B8A25971926EB6D907153F2"
+                    "_7421AC4F5E1E6A6FF507D9A1BB1A5D52"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
@@ -209,10 +259,10 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_725DE5532AFD42D99A0E6F6DA1208D1A"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7984CB167B834F4E8A50B34BB97EB96E"
             {
-            "SourcePath" = "8:..\\健診簿見本.xlsx"
-            "TargetName" = "8:健診簿見本.xlsx"
+            "SourcePath" = "8:..\\BarcodeReceptionAssistant\\BarcodeAssistant.ico"
+            "TargetName" = "8:BarcodeAssistant.ico"
             "Tag" = "8:"
             "Folder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
             "Condition" = "8:"
@@ -399,6 +449,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_10CAF395671F4F4C90E489D1C3AAF0B4"
+                    {
+                    "Name" = "8:バーコード受付処理ツール"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_E1A4C406316149A0BB2F2B328E8ED0D2"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_D592B58FFF4E4EFC9808CD3170AF9B74"
@@ -428,9 +489,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:BarcodeReceptionAssistant"
+        "ProductName" = "8:バーコード受付処理ツール"
         "ProductCode" = "8:{71D95572-09A2-4DCC-8115-097F4DD045A4}"
-        "PackageCode" = "8:{5CB1E58B-5961-4C88-A3C4-3059759C09EC}"
+        "PackageCode" = "8:{5ED08BD4-63FF-415A-A212-90584E6B5844}"
         "UpgradeCode" = "8:{C1BDC308-3977-4190-A140-EBDFD0F125B1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -438,10 +499,10 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:YasaSta"
+        "Manufacturer" = "8:Digitaro Studio"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:BarcodeReceptionAssistant"
+        "Title" = "8:バーコード受付処理ツール"
         "Subject" = "8:"
         "ARPCONTACT" = "8:H.Yasun"
         "Keywords" = "8:"
@@ -550,18 +611,46 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A40F18E121A2416EA0F676D11E37BE5C"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6850085075884CCC99FFEEB6DEF74984"
             {
-            "Name" = "8:BarcodeReceptionAssistant"
+            "Name" = "8:Shortcut to プライマリ出力 from BarcodeReceptionAssistant (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_421A50BE92CD4551A921720DE59A9FBD"
+            "Folder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
+            "WorkingFolder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
+            "Icon" = "8:_7984CB167B834F4E8A50B34BB97EB96E"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7CBCFAEB547E4EB1A19C2E76D12371F4"
+            {
+            "Name" = "8:バーコード受付処理ツール"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_52210CDB8F7545A7A9808375A44E6263"
+            "Target" = "8:_421A50BE92CD4551A921720DE59A9FBD"
+            "Folder" = "8:_10CAF395671F4F4C90E489D1C3AAF0B4"
+            "WorkingFolder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
+            "Icon" = "8:_421A50BE92CD4551A921720DE59A9FBD"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F597E324B8EE49A995A607D5E1EB0A28"
+            {
+            "Name" = "8:バーコード受付処理ツール"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_421A50BE92CD4551A921720DE59A9FBD"
             "Folder" = "8:_0130FFF248214E07880893759F70035C"
             "WorkingFolder" = "8:_D592B58FFF4E4EFC9808CD3170AF9B74"
-            "Icon" = "8:_52210CDB8F7545A7A9808375A44E6263"
+            "Icon" = "8:_7984CB167B834F4E8A50B34BB97EB96E"
             "Feature" = "8:"
             }
         }
@@ -963,7 +1052,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_52210CDB8F7545A7A9808375A44E6263"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_421A50BE92CD4551A921720DE59A9FBD"
             {
             "SourcePath" = "8:..\\BarcodeReceptionAssistant\\obj\\Release\\BarcodeReceptionAssistant.exe"
             "TargetName" = "8:"
@@ -983,7 +1072,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{C14A5996-D5E4-4BF4-A8FC-B448EE671611}"
             "ShowKeyOutput" = "11:TRUE"

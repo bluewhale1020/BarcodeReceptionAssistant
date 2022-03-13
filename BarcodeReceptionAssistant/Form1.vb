@@ -23,10 +23,10 @@ Public Class MainForm
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"腹囲", "視力", "聴力", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ホルムアルデヒド", "じん肺", "鉛", "電離", "インジウム"}
+    Private optionColNames As Array = {"身長", "体重", "BMI", "腹囲", "視力", "聴力", "診察", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ホルムアルデヒド", "じん肺", "鉛", "電離", "インジウム"}
     Private bloodColName As String = "血液検査"
     Private urinaryColNames As Array = {"尿検査", "尿検査2"}
-    Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "スチレン代謝物"}
+    Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "デルタアミノレブリン酸", "尿中ﾏﾝﾃﾞﾙ酸及びﾌｪﾆﾙｸﾞﾘｵｷｼﾙ酸", "尿中β2―ミクロブリン"}
     Private dispPersonInfo As StringCollection = My.Settings.ダイアローグ表示カラム
 
     'クラスオブジェクト
@@ -288,8 +288,16 @@ Public Class MainForm
     End Function
 
     Private Sub excelDataGridView_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles excelDataGridView.CellBeginEdit
-        If IsDBNull(excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value) = False Then
-            oldSNumber = excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value
+        Dim colName As String = excelDataGridView.Columns(e.ColumnIndex).Name
+
+        If colName = My.Settings.入力カラム名 Then
+            If IsDBNull(excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value) = False Then
+                oldSNumber = excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value
+            Else
+                oldSNumber = ""
+            End If
+
+
         End If
         displayReadBarcodePrompt()
 
@@ -319,12 +327,11 @@ Public Class MainForm
     End Sub
     Private Sub excelDataGridView_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles excelDataGridView.CellValidating
         Dim cellVal As String = excelDataGridView.CurrentCell.GetEditedFormattedValue(e.RowIndex, DataGridViewDataErrorContexts.Display).ToString()
+        Dim colName As String = excelDataGridView.Columns(e.ColumnIndex).Name
 
-        If cellVal <> "" And cellVal <> oldSNumber Then
-            Dim colName As String = excelDataGridView.Columns(e.ColumnIndex).Name
+        If colName = My.Settings.入力カラム名 Then
 
-            If colName = My.Settings.入力カラム名 Then
-
+            If cellVal <> "" And cellVal <> oldSNumber Then
                 If 通番重複データのチェック(cellVal) Then
 
                     'excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value = oldSNumber
@@ -335,10 +342,7 @@ Public Class MainForm
                         SendKeys.Send("{UP}")
                     End If
 
-
-
                     'excelDataGridView.EditingControl.Text = ""
-
 
                 ElseIf 整理番号の書式をチェック(cellVal) = False Then
                     If excelDataGridView.EditingControl IsNot Nothing Then
@@ -355,9 +359,19 @@ Public Class MainForm
                     End If
 
                 End If
+            End If
+        End If
 
+        If colName = My.Settings.バーコードカラム名 Then
 
-
+            If cellVal <> "" Then
+                If 個人番号重複データのチェック(cellVal, e.RowIndex, e.ColumnIndex) Then
+                    If excelDataGridView.EditingControl IsNot Nothing Then
+                        excelDataGridView.EditingControl.Text = ""
+                        displayDuplicateIdNumberAlert()
+                        SendKeys.Send("{UP}")
+                    End If
+                End If
             End If
         End If
     End Sub
@@ -416,9 +430,24 @@ Public Class MainForm
         End If
 
         Return False
+    End Function
 
+    Private Function 個人番号重複データのチェック(ByVal cellVal As String, ByVal rowIndex As Integer, ByVal colIndex As Integer)
 
+        For Each row In excelDataGridView.Rows
+            If row.Index <> rowIndex Then
+                Dim rowVal = row.Cells(colIndex).Value
+                '別の行と値が同じとき
+                If rowVal Is Nothing Then
+                    Continue For
+                End If
+                If cellVal = rowVal.ToString() Then
+                    Return True
+                End If
+            End If
+        Next
 
+        Return False
     End Function
 
     Private Function 整理番号の書式をチェック(ByVal cellVal As String)
@@ -428,6 +457,7 @@ Public Class MainForm
 
 
     End Function
+
 
 
     '本人確認処理
@@ -792,9 +822,8 @@ Public Class MainForm
 
     Private Function SearchGridViewRow(ByVal searchKey As String, ByRef dgrid As DataGridView, ByVal mode As String, ByVal colName As String)
         dgrid.ClearSelection()
-        If searchKey = "" Then
-
-            Exit Function
+        If searchKey = "" Or colName Is Nothing Then
+            Return False
         End If
 
         Dim hasData As Boolean = False
@@ -1070,6 +1099,13 @@ Public Class MainForm
     Private Sub displayDuplicateSNumberAlert()
         If CheckGridViewIsFilled Then
             messageLabel.Text = "通番が重複しています。変更して下さい。"
+            Panel1.BackColor = Color.Salmon
+        End If
+    End Sub
+
+    Private Sub displayDuplicateIdNumberAlert()
+        If CheckGridViewIsFilled Then
+            messageLabel.Text = "個人番号が重複しています。変更して下さい。"
             Panel1.BackColor = Color.Salmon
         End If
     End Sub
