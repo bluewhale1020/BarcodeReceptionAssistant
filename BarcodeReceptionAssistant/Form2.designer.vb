@@ -64,6 +64,9 @@ Partial Class 本人確認ダイアログ
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.確定Btn = New System.Windows.Forms.Button()
         Me.キャンセルBtn = New System.Windows.Forms.Button()
+        Me.後日便ボタン = New System.Windows.Forms.CheckBox()
+        Me.後日尿ボタン = New System.Windows.Forms.CheckBox()
+        Me.電離ボタン = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.othersPanel.SuspendLayout()
@@ -524,11 +527,44 @@ Partial Class 本人確認ダイアログ
         Me.キャンセルBtn.Text = "キャンセル"
         Me.キャンセルBtn.UseVisualStyleBackColor = True
         '
+        '後日便ボタン
+        '
+        Me.後日便ボタン.AutoSize = True
+        Me.後日便ボタン.Location = New System.Drawing.Point(21, 547)
+        Me.後日便ボタン.Name = "後日便ボタン"
+        Me.後日便ボタン.Size = New System.Drawing.Size(76, 24)
+        Me.後日便ボタン.TabIndex = 2
+        Me.後日便ボタン.Text = "後日便"
+        Me.後日便ボタン.UseVisualStyleBackColor = True
+        '
+        '後日尿ボタン
+        '
+        Me.後日尿ボタン.AutoSize = True
+        Me.後日尿ボタン.Location = New System.Drawing.Point(126, 547)
+        Me.後日尿ボタン.Name = "後日尿ボタン"
+        Me.後日尿ボタン.Size = New System.Drawing.Size(76, 24)
+        Me.後日尿ボタン.TabIndex = 3
+        Me.後日尿ボタン.Text = "後日尿"
+        Me.後日尿ボタン.UseVisualStyleBackColor = True
+        '
+        '電離ボタン
+        '
+        Me.電離ボタン.AutoSize = True
+        Me.電離ボタン.Location = New System.Drawing.Point(218, 545)
+        Me.電離ボタン.Name = "電離ボタン"
+        Me.電離ボタン.Size = New System.Drawing.Size(60, 24)
+        Me.電離ボタン.TabIndex = 4
+        Me.電離ボタン.Text = "電離"
+        Me.電離ボタン.UseVisualStyleBackColor = True
+        '
         '本人確認ダイアログ
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(766, 583)
+        Me.Controls.Add(Me.電離ボタン)
+        Me.Controls.Add(Me.後日尿ボタン)
+        Me.Controls.Add(Me.後日便ボタン)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
@@ -552,6 +588,7 @@ Partial Class 本人確認ダイアログ
         Me.Panel4.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -596,4 +633,7 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents 情報ラベル9 As Label
     Friend WithEvents 尿代謝詳細Label As Label
     Friend WithEvents 尿代謝Label As Label
+    Friend WithEvents 後日便ボタン As CheckBox
+    Friend WithEvents 後日尿ボタン As CheckBox
+    Friend WithEvents 電離ボタン As CheckBox
 End Class

@@ -181,12 +181,15 @@ Public Class SerialNumberManager
 
         Dim colData As ArrayList = New ArrayList
         For Each row As DataRow In gridDataTable.Rows
-            If row.Item(My.Settings.入力カラム名) IsNot Nothing And IsDBNull(row.Item(My.Settings.入力カラム名)) = False Then
-                Dim strVal As String = row.Item(My.Settings.入力カラム名)
-                If strVal <> "" Then
-                    colData.Add(CInt(row.Item(My.Settings.入力カラム名)))
-                End If
+            If row.RowState = DataRowState.Deleted Then
+                Continue For
             End If
+            If row.Item(My.Settings.入力カラム名) IsNot Nothing And IsDBNull(row.Item(My.Settings.入力カラム名)) = False Then
+                    Dim strVal As String = row.Item(My.Settings.入力カラム名)
+                    If strVal <> "" Then
+                        colData.Add(CInt(row.Item(My.Settings.入力カラム名)))
+                    End If
+                End If
 
 
         Next

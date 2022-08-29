@@ -30,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer, ByVal lateSamples As Hashtable, ByVal denriData As Boolean)
 
         本人情報のクリア()
 
@@ -53,6 +53,9 @@
         本人情報の表示(barcodeData, bloodPattern, optionItems, urinaryData, urinaryMetaboliteData, newSerialNumber)
 
         登録情報を設定(registrationStatus)
+
+        後日便尿設定(lateSamples)
+        電離設定(denriData)
 
     End Sub
 
@@ -92,6 +95,16 @@
         検査オプション項目表示(optionItems)
     End Sub
 
+    Private Sub 後日便尿設定(lateSamples)
+        後日便ボタン.Checked = lateSamples("便")
+
+        後日尿ボタン.Checked = lateSamples("尿検査")
+    End Sub
+
+    Private Sub 電離設定(denriData)
+        電離ボタン.Checked = denriData
+    End Sub
+
     Private Sub 尿検査表示(ByVal urinaryData As ArrayList)
 
         If urinaryData(0) <> "" Then
@@ -100,8 +113,8 @@
 
         End If
         If urinaryData.Count > 1 AndAlso urinaryData(1) <> "" Then
-
-            尿検査2Label.Text = urinaryData(1)
+            urinaryData.RemoveAt(0)
+            尿検査2Label.Text = String.Join("・", TryCast(urinaryData.ToArray(GetType(String)), String()))
 
         End If
 
@@ -180,5 +193,22 @@
         CType(Me.Owner, MainForm).confirmed = False
     End Sub
 
+    Private Sub 後日便ボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 後日便ボタン.CheckedChanged
+        If Not CType(Me.Owner, MainForm) Is Nothing Then
+            CType(Me.Owner, MainForm).lateFecalSample = 後日便ボタン.Checked
+        End If
 
+    End Sub
+
+    Private Sub 後日尿ボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 後日尿ボタン.CheckedChanged
+        If Not CType(Me.Owner, MainForm) Is Nothing Then
+            CType(Me.Owner, MainForm).lateUrinarySample = 後日尿ボタン.Checked
+        End If
+    End Sub
+
+    Private Sub 電離ボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 電離ボタン.CheckedChanged
+        If Not CType(Me.Owner, MainForm) Is Nothing Then
+            CType(Me.Owner, MainForm).denriData = 電離ボタン.Checked
+        End If
+    End Sub
 End Class

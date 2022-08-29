@@ -126,6 +126,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="DenriForm.Designer.vb">
+      <DependentUpon>DenriForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DenriForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ExcelController.vb" />
     <Compile Include="Form1.designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
@@ -164,6 +171,9 @@
     <Compile Include="SerialNumberManager.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DenriForm.resx">
+      <DependentUpon>DenriForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -192,7 +202,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
