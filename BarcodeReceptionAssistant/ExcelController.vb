@@ -12,6 +12,8 @@ Public Class ExcelController
     Private dtable As DataTable
     Private rx_date = New Regex("日|受付時", RegexOptions.Compiled)
     'Private numericCols As String() = New String() {"整理番号"}
+    Private Const TOTAL = "合計"
+    Private Const COLUMN_BIKO = "備考"
 
     Public Function ファイルのロード(ByVal filePath As String)
         'ファイルストリーム作成
@@ -75,7 +77,7 @@ Public Class ExcelController
                     End If
 
 
-                    Dim bikoIdx As Integer = カラム名検索("備考", header)
+                    Dim bikoIdx As Integer = カラム名検索(COLUMN_BIKO, header)
 
 
                     For i = 0 To cells.Keys.Max()
@@ -98,7 +100,7 @@ Public Class ExcelController
 
                             End If
 
-                            If (i + 1) = bikoIdx AndAlso inputData = "合計" Then
+                            If (i + 1) = bikoIdx AndAlso inputData = TOTAL Then
                                 isSumRow = True
                             End If
                             'Console.WriteLine(c.CellValue) 'need hanle for special values 
@@ -226,8 +228,9 @@ Public Class ExcelController
             End If
 
 
-            If column.ColumnName = "備考" Then
+            If column.ColumnName = COLUMN_BIKO Then
                 startPrint = True
+                drow(i) = TOTAL
             End If
             i += 1
         Next
