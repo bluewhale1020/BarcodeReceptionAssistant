@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class 本人確認ダイアログ
     Inherits System.Windows.Forms.Form
 
     'フォームがコンポーネントの一覧をクリーンアップするために dispose をオーバーライドします。
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class 本人確認ダイアログ
     'メモ: 以下のプロシージャは Windows フォーム デザイナーで必要です。
     'Windows フォーム デザイナーを使用して変更できます。  
     'コード エディターを使って変更しないでください。
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(本人確認ダイアログ))
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -67,6 +67,8 @@ Partial Class 本人確認ダイアログ
         Me.後日便ボタン = New System.Windows.Forms.CheckBox()
         Me.後日尿ボタン = New System.Windows.Forms.CheckBox()
         Me.電離ボタン = New System.Windows.Forms.CheckBox()
+        Me.胸部XPボタン = New System.Windows.Forms.CheckBox()
+        Me.胃部XPボタン = New System.Windows.Forms.CheckBox()
         Me.Panel1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.othersPanel.SuspendLayout()
@@ -540,7 +542,7 @@ Partial Class 本人確認ダイアログ
         '後日尿ボタン
         '
         Me.後日尿ボタン.AutoSize = True
-        Me.後日尿ボタン.Location = New System.Drawing.Point(126, 547)
+        Me.後日尿ボタン.Location = New System.Drawing.Point(103, 547)
         Me.後日尿ボタン.Name = "後日尿ボタン"
         Me.後日尿ボタン.Size = New System.Drawing.Size(76, 24)
         Me.後日尿ボタン.TabIndex = 3
@@ -550,18 +552,40 @@ Partial Class 本人確認ダイアログ
         '電離ボタン
         '
         Me.電離ボタン.AutoSize = True
-        Me.電離ボタン.Location = New System.Drawing.Point(218, 545)
+        Me.電離ボタン.Location = New System.Drawing.Point(187, 547)
         Me.電離ボタン.Name = "電離ボタン"
         Me.電離ボタン.Size = New System.Drawing.Size(60, 24)
         Me.電離ボタン.TabIndex = 4
         Me.電離ボタン.Text = "電離"
         Me.電離ボタン.UseVisualStyleBackColor = True
         '
+        '胸部XPボタン
+        '
+        Me.胸部XPボタン.AutoSize = True
+        Me.胸部XPボタン.Location = New System.Drawing.Point(262, 547)
+        Me.胸部XPボタン.Name = "胸部XPボタン"
+        Me.胸部XPボタン.Size = New System.Drawing.Size(60, 24)
+        Me.胸部XPボタン.TabIndex = 5
+        Me.胸部XPボタン.Text = "胸部"
+        Me.胸部XPボタン.UseVisualStyleBackColor = True
+        '
+        '胃部XPボタン
+        '
+        Me.胃部XPボタン.AutoSize = True
+        Me.胃部XPボタン.Location = New System.Drawing.Point(337, 547)
+        Me.胃部XPボタン.Name = "胃部XPボタン"
+        Me.胃部XPボタン.Size = New System.Drawing.Size(60, 24)
+        Me.胃部XPボタン.TabIndex = 6
+        Me.胃部XPボタン.Text = "胃部"
+        Me.胃部XPボタン.UseVisualStyleBackColor = True
+        '
         '本人確認ダイアログ
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(766, 583)
+        Me.Controls.Add(Me.胃部XPボタン)
+        Me.Controls.Add(Me.胸部XPボタン)
         Me.Controls.Add(Me.電離ボタン)
         Me.Controls.Add(Me.後日尿ボタン)
         Me.Controls.Add(Me.後日便ボタン)
@@ -636,4 +660,6 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents 後日便ボタン As CheckBox
     Friend WithEvents 後日尿ボタン As CheckBox
     Friend WithEvents 電離ボタン As CheckBox
+    Friend WithEvents 胸部XPボタン As CheckBox
+    Friend WithEvents 胃部XPボタン As CheckBox
 End Class

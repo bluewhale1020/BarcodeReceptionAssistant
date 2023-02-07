@@ -198,9 +198,33 @@ Public Class SerialNumberManager
 
     End Function
 
-    Private Function 受付人数を計算(ByVal colData As ArrayList)
+    Private Function getReceptionDatesFromDatatable(ByRef gridDataTable As DataTable) As ArrayList
+        'Dim colData As ArrayList = (From row As DataRow In gridDataTable.Rows
+        '                            Select CStr(row.Item(My.Settings.入力カラム名)))
 
-        numOfReceivedPersons = colData.Count
+        Dim colData As ArrayList = New ArrayList
+        For Each row As DataRow In gridDataTable.Rows
+            If row.RowState = DataRowState.Deleted Then
+                Continue For
+            End If
+            If row.Item("受付時間") IsNot Nothing And IsDBNull(row.Item("受付時間")) = False AndAlso Not String.IsNullOrEmpty(row.Item("受付時間")) Then
+                Dim receptionDate As String = row.Item("受付時間")
+                Dim oDate As DateTime = Convert.ToDateTime(row.Item("受付時間"))
+                If oDate.Date = Date.Today Then
+                    colData.Add(oDate)
+                End If
+            End If
+
+
+        Next
+
+        Return colData
+
+    End Function
+
+    Private Function 受付人数を計算(ByVal receptionDates As ArrayList)
+
+        numOfReceivedPersons = receptionDates.Count
 
         Return numOfReceivedPersons
 
@@ -216,8 +240,8 @@ Public Class SerialNumberManager
         endNumber = 通番最大値の取得(colData)
 
         '欠番を計算(gridDataTable)
-
-        受付人数を計算(colData)
+        Dim receptionDates As ArrayList = getReceptionDatesFromDatatable(gridDataTable)
+        受付人数を計算(receptionDates)
         Return True
 
     End Function

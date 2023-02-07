@@ -30,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer, ByVal lateSamples As Hashtable, ByVal denriData As Boolean)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer, ByVal lateSamples As Hashtable, ByVal denriData As Boolean, ByVal takeXrays As Hashtable)
 
         本人情報のクリア()
 
@@ -55,6 +55,7 @@
         登録情報を設定(registrationStatus)
 
         後日便尿設定(lateSamples)
+        XP設定(takeXrays)
         電離設定(denriData)
 
     End Sub
@@ -103,6 +104,21 @@
 
     Private Sub 電離設定(denriData)
         電離ボタン.Checked = denriData
+    End Sub
+
+    Private Sub XP設定(takeXrays As Hashtable)
+        If String.IsNullOrEmpty(takeXrays("胸部X線")) Then
+            胸部XPボタン.Enabled = False
+        Else
+            胸部XPボタン.Enabled = True
+            胸部XPボタン.Checked = takeXrays("胸部X線")
+        End If
+        If String.IsNullOrEmpty(takeXrays("胃部")) Then
+            胃部XPボタン.Enabled = False
+        Else
+            胃部XPボタン.Enabled = True
+            胃部XPボタン.Checked = takeXrays("胃部")
+        End If
     End Sub
 
     Private Sub 尿検査表示(ByVal urinaryData As ArrayList)
@@ -209,6 +225,18 @@
     Private Sub 電離ボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 電離ボタン.CheckedChanged
         If Not CType(Me.Owner, MainForm) Is Nothing Then
             CType(Me.Owner, MainForm).denriData = 電離ボタン.Checked
+        End If
+    End Sub
+
+    Private Sub 胸部XPボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 胸部XPボタン.CheckedChanged
+        If Not CType(Me.Owner, MainForm) Is Nothing AndAlso 胸部XPボタン.Enabled = True Then
+            CType(Me.Owner, MainForm).takeBreastXray = 胸部XPボタン.Checked
+        End If
+    End Sub
+
+    Private Sub 胃部XPボタン_CheckedChanged(sender As Object, e As EventArgs) Handles 胃部XPボタン.CheckedChanged
+        If Not CType(Me.Owner, MainForm) Is Nothing AndAlso 胃部XPボタン.Enabled = True Then
+            CType(Me.Owner, MainForm).takeStomachXray = 胃部XPボタン.Checked
         End If
     End Sub
 End Class

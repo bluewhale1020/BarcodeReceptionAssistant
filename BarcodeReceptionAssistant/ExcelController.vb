@@ -176,21 +176,23 @@ Public Class ExcelController
 
     End Function
 
-    Public Function ファイルの保存(ByRef gridDataTable As DataTable, ByVal outputPath As String)
+    Public Function ファイルの保存(ByRef gridDataTable As DataTable, ByVal outputPath As String, ByVal addSumRow As Boolean)
 
-        Return exportDataTableToExcel(gridDataTable, outputPath)
+        Return exportDataTableToExcel(gridDataTable, outputPath, addSumRow)
 
 
     End Function
 
-    Private Function exportDataTableToExcel(ByRef objdt As DataTable, ByVal StrFilePath As String)
+    Private Function exportDataTableToExcel(ByRef objdt As DataTable, ByVal StrFilePath As String, ByVal addSumRow As Boolean)
 
         fileName = My.Settings.出力ファイル名 + ".xlsx"
 
         Dim saveFilePath As String = IO.Path.Combine(StrFilePath, createFullFileName(fileName))
         Dim copiedTable As DataTable = objdt.Copy
 
-        集計行の追加(copiedTable)
+        If addSumRow Then
+            集計行の追加(copiedTable)
+        End If
 
         objBook = New XLWorkbook()
         objBook.Worksheets.Add(copiedTable)
@@ -207,7 +209,6 @@ Public Class ExcelController
             copiedTable = Nothing
         End Try
 
-        'objBook.Dispose()
 
         Return result
 

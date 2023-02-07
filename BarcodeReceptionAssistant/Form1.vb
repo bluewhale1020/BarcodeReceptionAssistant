@@ -23,6 +23,8 @@ Public Class MainForm
     Public lateUrinarySample As Boolean
     Public lateFecalSample As Boolean
     Public denriData As Boolean
+    Public takeBreastXray As Boolean?
+    Public takeStomachXray As Boolean?
 
     '通番印字　書式 
 
@@ -31,9 +33,9 @@ Public Class MainForm
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"身長", "体重", "BMI", "腹囲", "視力", "聴力", "診察", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力"}
+    Private optionColNames As Array = {"身長", "体重", "BMI", "腹囲", "視力", "聴力", "診察", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ALP・T-Bill", "ABC", "肝炎", "野田肝炎", "歯科検診"}
     Private bloodColName As String = "血液検査"
-    Private bloodColNames As Array = {"生化", "血算", "血糖", "ヘパリン"}
+    Private bloodColNames As Array = {"生化", "血算", "血糖", "ヘパリン", "血液像"}
     Private urinaryColNames As Array = {"尿検査", "尿蛋白", "尿糖", "尿潜血"}
     Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "デルタアミノレブリン酸", "尿中ﾏﾝﾃﾞﾙ酸及びﾌｪﾆﾙｸﾞﾘｵｷｼﾙ酸", "尿中β2―ミクロブリン"}
     Private dispPersonInfo As StringCollection = My.Settings.ダイアローグ表示カラム
@@ -219,7 +221,7 @@ Public Class MainForm
         End If
 
 
-        If saveToExcel() = True Then
+        If saveToExcel(True) = True Then
             MessageBox.Show("表データをエクセルに保存しました。", "保存完了", MessageBoxButtons.OK)
         Else
 
@@ -230,14 +232,14 @@ Public Class MainForm
 
     End Sub
 
-    Private Function saveToExcel()
+    Private Function saveToExcel(Optional ByVal addSumRow As Boolean = False)
         Dim userOutputPath As String = OutputFilePathBox.Text
 
         If userOutputPath = "" Then
             userOutputPath = Me.outputPath
         End If
 
-        saveToExcel = excelCn.ファイルの保存(gridDataTable, userOutputPath)
+        saveToExcel = excelCn.ファイルの保存(gridDataTable, userOutputPath, addSumRow)
     End Function
 
     Private Sub ファイル選択Btn_Click(sender As Object, e As EventArgs) Handles ファイル選択Btn.Click
@@ -503,16 +505,18 @@ Public Class MainForm
                 'バーコードデータの検索
                 If barcodeTest <> defaultBarcodeNumber AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     setLateSamples()
+                    setXrayInfos()
                     Me.denriData = getDenriData()
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
                     Dim filteredColData As ArrayList = filterColDataForDisplay()
-                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), filteredColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, getUrinaryMetaboliteData, SNMnger.現在の通番を取得(), getLateSamples(), Me.denriData)
+                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), filteredColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, getUrinaryMetaboliteData, SNMnger.現在の通番を取得(), getLateSamples(), Me.denriData, getXraysInfo())
                     f2.ShowDialog(Me)
 
 
                 Else
                     clearLateSamples()
+                    clearXraysInfo()
                     Me.denriData = False
 
                     '本人確認失敗ダイアログ
@@ -595,6 +599,55 @@ Public Class MainForm
 
         Return lateSamples
     End Function
+
+
+    Private Sub clearXraysInfo()
+        Me.takeBreastXray = Nothing
+        Me.takeStomachXray = Nothing
+    End Sub
+
+    Private Function setXrayInfos()
+
+        Dim idx As Integer = 0
+        For Each item In excelDataGridView.SelectedRows.Item(0).Cells
+            Dim colName As String = excelDataGridView.Columns(idx).Name
+
+            Dim strVal As String = Convert.ToString(item.Value)
+
+            If colName = "胸部X線" Then
+                If strVal = "キャンセル" Then
+                    Me.takeBreastXray = False
+                ElseIf strVal = "●" Then
+                    Me.takeBreastXray = True
+                Else
+                    Me.takeBreastXray = Nothing
+                End If
+            ElseIf colName = "胃部" Then
+                If strVal = "キャンセル" Then
+                    Me.takeStomachXray = False
+                ElseIf strVal = "●" Then
+                    Me.takeStomachXray = True
+                Else
+                    Me.takeStomachXray = Nothing
+                End If
+            End If
+
+
+            idx += 1
+
+        Next
+
+        Return ""
+    End Function
+
+    Private Function getXraysInfo()
+        Dim takeXrays As Hashtable = New Hashtable
+        takeXrays.Add("胸部X線", Me.takeBreastXray)
+        takeXrays.Add("胃部", Me.takeStomachXray)
+
+        Return takeXrays
+    End Function
+
     Private Function getDenriData()
         Dim needDenri As Boolean
         Dim idx As Integer = 0
@@ -755,10 +808,11 @@ Public Class MainForm
             rowIdx = excelDataGridView.SelectedRows.Item(0).Index
 
             'datagridviewの選択レコードの受付日時と通番にそれぞれ現在日時と現在の通番を入力する
-            If 通番印字(False, rowIdx) AndAlso 時刻印字(rowIdx) Then
+            If 通番印字(True, rowIdx) AndAlso 時刻印字(rowIdx, True) Then
                 'Dim snTable As OrderedDictionary = SNMnger.通番情報の取得 'SNMnger.通番を1加算
-                後日便尿印字(False, rowIdx)
-                電離印字(False, rowIdx)
+                後日便尿印字(True, rowIdx)
+                XPキャンセル処理(True, rowIdx)
+                電離印字(True, rowIdx)
 
                 gridDataTable.AcceptChanges()
 
@@ -778,6 +832,7 @@ Public Class MainForm
             excelDataGridView.ClearSelection()
         End If
         clearLateSamples()
+        clearXraysInfo()
         Me.denriData = False
 
         バーコードデータBox.Text = ""
@@ -810,6 +865,7 @@ Public Class MainForm
             If 通番印字(True, selectedRowId) AndAlso 時刻印字(selectedRowId, True) Then
                 'Dim snTable As OrderedDictionary = SNMnger.通番情報の取得 'SNMnger.通番を1加算
                 後日便尿印字(True, selectedRowId)
+                XPキャンセル処理(True, selectedRowId)
                 '在籍番号を入力
                 在籍番号印字(barcodeTest, True, selectedRowId)
 
@@ -894,6 +950,37 @@ Public Class MainForm
             End If
         End If
     End Sub
+
+
+    Private Sub XPキャンセル処理(ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
+
+        Dim rowIdx As Int32
+
+        If useDTable Then
+            rowIdx = tRowIdx
+        Else
+            rowIdx = tRowIdx
+        End If
+
+        '胸部X線
+        If Me.takeBreastXray = True Then
+            editGridCell(excelDataGridView, "胸部X線", rowIdx, "●")
+        ElseIf Me.takeBreastXray = False Then
+            editGridCell(excelDataGridView, "胸部X線", rowIdx, "キャンセル")
+        Else
+            editGridCell(excelDataGridView, "胸部X線", rowIdx, "")
+        End If
+
+        '胃部
+        If Me.takeStomachXray = True Then
+            editGridCell(excelDataGridView, "胃部", rowIdx, "●")
+        ElseIf Me.takeStomachXray = False Then
+            editGridCell(excelDataGridView, "胃部", rowIdx, "キャンセル")
+        Else
+            editGridCell(excelDataGridView, "胃部", rowIdx, "")
+        End If
+    End Sub
+
 
     Private Function 在籍番号印字(ByVal barcodeTest As String, ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
         'Dim strTime As String = 受付時刻を取得()
@@ -1335,7 +1422,7 @@ Public Class MainForm
         Dim numOfReceivedPersons As Integer = SNMnger.受付人数を取得
         Dim totalNum As Integer = gridDataTable.Rows.Count
 
-        受付人数Label.Text = CStr(numOfReceivedPersons) + "　／　" + CStr(totalNum) + "　　名"
+        受付人数Label.Text = CStr(numOfReceivedPersons) + "　(本日)　／　" + CStr(totalNum) + "　　名"
 
     End Sub
 
