@@ -12,19 +12,21 @@ Public Class MainForm
 
     Private searchMode As String = My.Settings.検索モード
 
-
+    Private Property saveToExcelLocker As New Object
 
     Public barcodeInputReady As Boolean = False
     Private gridDataTable As DataTable
     Dim gridBindingSource As New BindingSource
     Private outputPath As String = My.Settings.出力先パス 'IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "outputdata.xlsx")
     Public confirmed As Boolean
+    Public shouldUpdateSNumber As Boolean
     Public selectedIdNumber As String
     Public lateUrinarySample As Boolean
     Public lateFecalSample As Boolean
     Public denriData As Boolean
     Public takeBreastXray As Boolean?
     Public takeStomachXray As Boolean?
+    Public hasSpecificWork As Boolean
 
     '通番印字　書式 
 
@@ -37,6 +39,7 @@ Public Class MainForm
     Private bloodColName As String = "血液検査"
     Private bloodColNames As Array = {"生化", "血算", "血糖", "ヘパリン", "血液像"}
     Private urinaryColNames As Array = {"尿検査", "尿蛋白", "尿糖", "尿潜血"}
+    Private organicChemicalItems As String() = {"1,2-ジクロルエチレン", "ニ硫化炭素", "アセトン", "イソブチルアルコール", "イソプロピルアルコール", "イソペンチルアルコール", "エチルエーテル", "ｴﾁﾚﾝｸﾞﾘｺｰﾙ ﾓﾉ ｴﾁﾙ ｴｰﾃﾙ", "ｴﾁﾚﾝｸﾞﾘｺｰﾙ ﾓﾉ ｴﾁﾙ ｴｰﾃﾙ ｱｾﾃｰﾄ", "ｴﾁﾚﾝｸﾞﾘｺｰﾙ ﾓﾉ ﾉﾙﾏﾙ ﾌﾞﾁﾙ ｴｰﾃﾙ", "ｴﾁﾚﾝｸﾞﾘｺｰﾙ ﾓﾉ ﾒﾁﾙ ｴｰﾃﾙ", "オルト-ジクロルベンゼン", "キシレン", "クレゾール", "クロルベンゼン", "酢酸イソブチル", "酢酸イソプロピル", "酢酸イソペンチル", "酢酸エチル", "酢酸ノルマル-ブチル", "酢酸ノルマル-プロピル", "酢酸ノルマル-ペンチル", "酢酸メチル", "シクロヘキサノール", "シクロヘキサノン", "N,N-ジメチルホルムアミド", "テトラヒドロフラン", "1,1,1-トリクロルエタン", "トルエン", "ノルマルヘキサン", "１-ブタノール", "２-ブタノール", "メタノール", "メチルエチルケトン", "メチルシクロヘキサノール", "メチルシクロヘキサノン", "メチル-ノルマル-ブチルケトン", "ベンジジン及びその塩", "４-アミノジフェニル及びその塩", "４-ニトロジフェニル及びその塩", "ビス(クロロメチル)エーテル", "ベータ―ナフチルアミン及びその塩", "ベンゼン", "ベンゼンを含有するゴムのり（ベンゼン容量が5％を超えるもの）", "ジクロルベンジジン及びその塩", "アルファ‐ナフチルアミン及びその塩", "塩素化ビフェニル（PCB）", "オルト‐トリジン及びその塩", "ジアニシジン及びその塩", "ベリリウム及びその化合物", "ベンゾトリクロリド", "アクリルアミド", "アクリロニトリル", "アルキル水銀化合物", "インジウム化合物", "エチルベンゼン", "エチレンイミン", "エチレンオキシド", "塩化ビニル", "塩素", "オーラミン", "オルト-フタロジニトリル", "カドミウム及びその化合物", "クロム酸及びその塩", "クロロホルム", "クロロメチルメチルエーテル", "五酸化バナジウム", "コバルト及びその化合物", "コールタール", "酸化プロピレン", "シアン化カリウム", "シアン化水素", "シアン化ナトリウム", "四塩化炭素", "1,4-ジオキサン", "1,2-ジクロロエタン", "ジクロロメタン", "3,3-ｼﾞ ｸﾛﾛ-4,4 ｼﾞ ｱﾐﾉ ｼﾞ ﾌｪﾆﾙ ﾒﾀﾝ", "1,2-ジクロロプロパン", "1,1-ジメチルヒドラジン", "ｼﾞﾒﾁﾙ-2,2‐ｼﾞｸﾛﾛﾋﾞﾆﾙﾎｽﾌｪｲﾄ", "スチレン", "臭化メチル", "重クロム酸及びその塩", "水銀及びその無機化合物", "1,1,2,2-テトラクロルエタン", "テトラクロルエチレン", "トリクロルエチレン", "トリレンジイソシアネート", "ニッケル化合物", "ニッケルカルボニル", "ニトログリコール", "パラ-ジメチルアミノアゾベンゼン", "パラ-ニトロクロルベンゼン", "砒素及びその化合物", "弗化水素", "ベータ-プロピオラクトン", "ﾍﾟﾝﾀ ｸﾛﾙ ﾌｪﾉｰﾙ及びそのﾅﾄﾘｳﾑ塩", "ホルムアルデヒド", "マゼンタ", "マンガン及びその化合物", "メチルイソブチルケトン", "沃化メチル", "硫化水素", "硫酸ジメチル", "ナフタレン", "リフラクトリーセラミックファイバー（CAS 142844-00-6）", "オルト-トルイジン（CAS 95-53-4)", "三酸化二アンチモン（CAS 1309-64-4)", "溶接ヒューム（金属アーク溶接作業）"}
     Private urinaryMetaboliteColNames As Array = {"ﾒﾁﾙ馬尿酸", "Nメチルホルムアミド", "ﾏﾝﾃﾞﾙ酸", "ﾄﾘｸﾛﾙ酢酸", "馬尿酸", "2．5ﾍｷｻﾝｼﾞｵﾝ", "デルタアミノレブリン酸", "尿中ﾏﾝﾃﾞﾙ酸及びﾌｪﾆﾙｸﾞﾘｵｷｼﾙ酸", "尿中β2―ミクロブリン"}
     Private dispPersonInfo As StringCollection = My.Settings.ダイアローグ表示カラム
 
@@ -238,8 +241,11 @@ Public Class MainForm
         If userOutputPath = "" Then
             userOutputPath = Me.outputPath
         End If
+        SyncLock saveToExcelLocker
+            saveToExcel = excelCn.ファイルの保存(gridDataTable, userOutputPath, addSumRow)
+        End SyncLock
 
-        saveToExcel = excelCn.ファイルの保存(gridDataTable, userOutputPath, addSumRow)
+
     End Function
 
     Private Sub ファイル選択Btn_Click(sender As Object, e As EventArgs) Handles ファイル選択Btn.Click
@@ -351,11 +357,17 @@ Public Class MainForm
             'If IsNumeric(excelDataGridView.Item(e.ColumnIndex, e.RowIndex).Value) Then
             '    時刻印字(e.RowIndex)
             'End If
+        ElseIf organicChemicalItems.Contains(colName) Then
+            有機溶剤と特化物の件数更新(e.RowIndex)
 
+            'Debug 用
+            'Dim countValue = excelDataGridView.Rows(e.RowIndex).Cells("有機溶剤・特化物の件数").Value
+            'MessageBox.Show(countValue)
 
         End If
-
+        'Task.Run(Sub()
         saveToExcel()
+        'End Sub)
 
     End Sub
     Private Sub excelDataGridView_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles excelDataGridView.CellValidating
@@ -506,17 +518,19 @@ Public Class MainForm
                 If barcodeTest <> defaultBarcodeNumber AndAlso 検索の実行(barcodeTest, "全文一致", My.Settings.バーコードカラム名) Then
                     setLateSamples()
                     setXrayInfos()
+                    setHasSpecificWork()
                     Me.denriData = getDenriData()
                     '本人確認ダイアログ
                     f2 = New 本人確認ダイアログ()
                     Dim filteredColData As ArrayList = filterColDataForDisplay()
-                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), filteredColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, getUrinaryMetaboliteData, SNMnger.現在の通番を取得(), getLateSamples(), Me.denriData, getXraysInfo())
+                    f2.本人情報を設定(DirectCast(getGridViewRow(), Hashtable), filteredColData, barcodeTest, getBloodPattern, getOptionItems, getUrinaryData, getUrinaryMetaboliteData, SNMnger.現在の通番を取得(), getLateSamples(), Me.denriData, getXraysInfo(), hasSpecificWork)
                     f2.ShowDialog(Me)
 
 
                 Else
                     clearLateSamples()
                     clearXraysInfo()
+                    Me.hasSpecificWork = False
                     Me.denriData = False
 
                     '本人確認失敗ダイアログ
@@ -639,6 +653,27 @@ Public Class MainForm
 
         Return ""
     End Function
+
+
+    Private Sub setHasSpecificWork()
+
+        Dim idx As Integer = 0
+        For Each item In excelDataGridView.SelectedRows.Item(0).Cells
+            Dim colName As String = excelDataGridView.Columns(idx).Name
+
+            Dim strVal As String = Convert.ToString(item.Value)
+
+            If colName = "特業" Then
+                If strVal = "●" Then
+                    Me.hasSpecificWork = True
+                Else
+                    Me.hasSpecificWork = False
+                End If
+            End If
+
+            idx += 1
+        Next
+    End Sub
 
     Private Function getXraysInfo()
         Dim takeXrays As Hashtable = New Hashtable
@@ -803,12 +838,13 @@ Public Class MainForm
     End Function
 
     Public Sub 本人確認後処理()
+        Me.shouldUpdateSNumber = True
         If Me.confirmed Then '確定した
             Dim rowIdx As Int32
             rowIdx = excelDataGridView.SelectedRows.Item(0).Index
 
             'datagridviewの選択レコードの受付日時と通番にそれぞれ現在日時と現在の通番を入力する
-            If 通番印字(True, rowIdx) AndAlso 時刻印字(rowIdx, True) Then
+            If 通番更新処理(rowIdx, True) Then
                 'Dim snTable As OrderedDictionary = SNMnger.通番情報の取得 'SNMnger.通番を1加算
                 後日便尿印字(True, rowIdx)
                 XPキャンセル処理(True, rowIdx)
@@ -820,8 +856,10 @@ Public Class MainForm
                 受付人数更新()
 
                 ValidateCurrentNumber()
-
+                'Task.Run(Sub()
                 saveToExcel()
+                'End Sub)
+
 
             Else
                 MessageBox.Show("グリッドデータに通番を登録できませんでした。", "通番登録エラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -845,6 +883,17 @@ Public Class MainForm
 
         selectedIdNumber = Nothing
     End Sub
+
+    Function 通番更新処理(ByVal rowIdx As Int32, ByVal Optional useDTable As Boolean = False)
+        If Me.shouldUpdateSNumber = False Then
+            Return True
+        End If
+        If 通番印字(useDTable, rowIdx) AndAlso 時刻印字(rowIdx, useDTable) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Public Sub 新規登録処理(ByVal barcodeTest As String)
         If Me.confirmed Then '確定した
@@ -883,8 +932,6 @@ Public Class MainForm
 
                 ValidateCurrentNumber()
 
-                saveToExcel()
-
             Else
                 MessageBox.Show("グリッドデータに通番を登録できませんでした。", "通番登録エラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -904,6 +951,27 @@ Public Class MainForm
 
 
     End Sub
+
+    Private Sub 有機溶剤と特化物の件数更新(ByVal rowIdx As Integer)
+        Dim idx As Integer = 0
+        Dim count As Integer = 0
+        For Each item In excelDataGridView.Rows(rowIdx).Cells
+            Dim colName As String = excelDataGridView.Columns(idx).Name
+
+            Dim strVal As String = Convert.ToString(item.Value)
+
+            If organicChemicalItems.Contains(colName) Then
+                If strVal = "●" Then
+                    count += 1
+                End If
+            End If
+
+            idx += 1
+        Next
+
+        editGridCell(excelDataGridView, "有機溶剤・特化物の件数", rowIdx, count)
+    End Sub
+
 
     Private Sub 後日便尿印字(ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
         'Dim strTime As String = 受付時刻を取得()
@@ -1037,7 +1105,7 @@ Public Class MainForm
 
     End Function
 
-    Private Function 電離印字(ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
+    Private Sub 電離印字(ByVal Optional useDTable As Boolean = False, ByVal Optional tRowIdx As Integer = vbEmpty)
         Dim rowIdx As Int32
 
         If useDTable Then
@@ -1055,7 +1123,7 @@ Public Class MainForm
 
         End If
 
-    End Function
+    End Sub
 
 
     Private Function 右を0で埋める(ByVal currentNumber As Integer)
@@ -1445,6 +1513,8 @@ Public Class MainForm
         End Get
     End Property
 
+
+
     '最後の処理
     Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         If CheckGridViewIsFilled Then
@@ -1532,8 +1602,6 @@ Public Class MainForm
                 受付人数更新()
 
                 ValidateCurrentNumber()
-
-                saveToExcel()
 
             Else
                 MessageBox.Show("電離のみ受診者データに通番を登録できませんでした。", "通番登録エラー", MessageBoxButtons.OK, MessageBoxIcon.Error)

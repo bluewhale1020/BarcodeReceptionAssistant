@@ -30,7 +30,7 @@
         End If
     End Sub
 
-    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer, ByVal lateSamples As Hashtable, ByVal denriData As Boolean, ByVal takeXrays As Hashtable)
+    Public Sub 本人情報を設定(ByVal rowdata As Hashtable, ByVal gridColData As ArrayList, ByVal barcodeData As String, ByVal bloodPattern As String, ByVal optionItems As ArrayList, ByVal urinaryData As ArrayList, ByVal urinaryMetaboliteData As ArrayList, ByVal newSerialNumber As Integer, ByVal lateSamples As Hashtable, ByVal denriData As Boolean, ByVal takeXrays As Hashtable, ByVal hasSpecificWork As Boolean)
 
         本人情報のクリア()
 
@@ -57,6 +57,7 @@
         後日便尿設定(lateSamples)
         XP設定(takeXrays)
         電離設定(denriData)
+        特業表示(hasSpecificWork)
 
     End Sub
 
@@ -104,6 +105,14 @@
 
     Private Sub 電離設定(denriData)
         電離ボタン.Checked = denriData
+    End Sub
+
+    Private Sub 特業表示(hasSpecificWork As Boolean)
+        If hasSpecificWork Then
+            特定業務従事者ラベル.Visible = True
+        Else
+            特定業務従事者ラベル.Visible = False
+        End If
     End Sub
 
     Private Sub XP設定(takeXrays As Hashtable)
@@ -173,14 +182,19 @@
 
         If isRegistered Then
             Dim InputColName As String = My.Settings.入力カラム名
-            If MessageBox.Show(String.Format("既に{0}を登録済ですが、新しい{0}に上書きしますか？", InputColName), "通番上書き確認", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+            Dim response As DialogResult = MessageBox.Show(String.Format("既に{0}を登録済ですが、新しい{0}に上書きしますか？", InputColName), "通番上書き確認", MessageBoxButtons.YesNoCancel)
+
+            If response = DialogResult.Yes Then
+                CType(Me.Owner, MainForm).shouldUpdateSNumber = True
+                登録の確定()
+            ElseIf response = DialogResult.No Then
+                CType(Me.Owner, MainForm).shouldUpdateSNumber = False
                 登録の確定()
             Else
                 登録のキャンセル()
             End If
 
         Else
-
             登録の確定()
         End If
 
@@ -239,4 +253,5 @@
             CType(Me.Owner, MainForm).takeStomachXray = 胃部XPボタン.Checked
         End If
     End Sub
+
 End Class

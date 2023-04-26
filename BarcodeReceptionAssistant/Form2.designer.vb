@@ -36,6 +36,7 @@ Partial Class 本人確認ダイアログ
         Me.血液検査Panel = New System.Windows.Forms.Panel()
         Me.採血パターンLabel = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.特定業務従事者ラベル = New System.Windows.Forms.Label()
         Me.情報データ9 = New System.Windows.Forms.Label()
         Me.情報ラベル9 = New System.Windows.Forms.Label()
         Me.情報データ8 = New System.Windows.Forms.Label()
@@ -207,6 +208,7 @@ Partial Class 本人確認ダイアログ
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.特定業務従事者ラベル)
         Me.GroupBox1.Controls.Add(Me.情報データ9)
         Me.GroupBox1.Controls.Add(Me.情報ラベル9)
         Me.GroupBox1.Controls.Add(Me.情報データ8)
@@ -232,6 +234,19 @@ Partial Class 本人確認ダイアログ
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "受診者情報"
+        '
+        '特定業務従事者ラベル
+        '
+        Me.特定業務従事者ラベル.AutoSize = True
+        Me.特定業務従事者ラベル.Font = New System.Drawing.Font("Meiryo UI", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.特定業務従事者ラベル.ForeColor = System.Drawing.Color.LightCoral
+        Me.特定業務従事者ラベル.Location = New System.Drawing.Point(408, 179)
+        Me.特定業務従事者ラベル.MaximumSize = New System.Drawing.Size(163, 0)
+        Me.特定業務従事者ラベル.Name = "特定業務従事者ラベル"
+        Me.特定業務従事者ラベル.Size = New System.Drawing.Size(121, 20)
+        Me.特定業務従事者ラベル.TabIndex = 23
+        Me.特定業務従事者ラベル.Text = "特定業務従事者"
+        Me.特定業務従事者ラベル.Visible = False
         '
         '情報データ9
         '
@@ -662,4 +677,5 @@ Partial Class 本人確認ダイアログ
     Friend WithEvents 電離ボタン As CheckBox
     Friend WithEvents 胸部XPボタン As CheckBox
     Friend WithEvents 胃部XPボタン As CheckBox
+    Friend WithEvents 特定業務従事者ラベル As Label
 End Class
