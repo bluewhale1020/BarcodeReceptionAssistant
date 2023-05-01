@@ -358,10 +358,10 @@ Public Class MainForm
             '    時刻印字(e.RowIndex)
             'End If
         ElseIf chemicalItems.Contains(colName) Then
-            有機溶剤と特化物の件数更新(e.RowIndex)
+            特化物の件数更新(e.RowIndex)
 
             'Debug 用
-            'Dim countValue = excelDataGridView.Rows(e.RowIndex).Cells("有機溶剤・特化物の件数").Value
+            'Dim countValue = excelDataGridView.Rows(e.RowIndex).Cells("特化物の件数").Value
             'MessageBox.Show(countValue)
 
         End If
@@ -952,7 +952,7 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub 有機溶剤と特化物の件数更新(ByVal rowIdx As Integer)
+    Private Sub 特化物の件数更新(ByVal rowIdx As Integer)
         Dim idx As Integer = 0
         Dim count As Integer = 0
         For Each item In excelDataGridView.Rows(rowIdx).Cells
@@ -969,7 +969,7 @@ Public Class MainForm
             idx += 1
         Next
 
-        editGridCell(excelDataGridView, "有機溶剤・特化物の件数", rowIdx, count)
+        editGridCell(excelDataGridView, "特化物の件数", rowIdx, count)
     End Sub
 
 
