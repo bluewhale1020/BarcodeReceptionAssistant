@@ -77,6 +77,23 @@
             idx += 1
         Next
 
+        Dim ctrlArray = Me.Controls.Find("情報ラベル" + CStr(idx), True)
+
+        For Each oneControl In ctrlArray
+            If oneControl IsNot Nothing Then
+                oneControl.Text = ""
+            End If
+        Next
+
+
+        ctrlArray = Me.Controls.Find("情報データ" + CStr(idx), True)
+        For Each oneControl In ctrlArray
+            If oneControl IsNot Nothing Then
+                oneControl.Text = ""
+            End If
+        Next
+
+
         バーコードLabel.Text = barcodeData
         If bloodPattern <> "" Then
             採血パターンLabel.Text = bloodPattern
