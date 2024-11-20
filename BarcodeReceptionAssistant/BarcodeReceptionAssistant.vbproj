@@ -11,7 +11,7 @@
     <AssemblyName>BarcodeReceptionAssistant</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Users\yasun\Documents\dist\バーコード受付処理ツール\</PublishUrl>
@@ -36,6 +36,7 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -79,10 +80,13 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\BarcodeAssistant2-1.ico</ApplicationIcon>
+    <ApplicationIcon>BarcodeAssistant.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML, Version=0.92.1.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
@@ -123,6 +127,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="DenriForm.Designer.vb">
+      <DependentUpon>DenriForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DenriForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ExcelController.vb" />
     <Compile Include="Form1.designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
@@ -161,6 +172,9 @@
     <Compile Include="SerialNumberManager.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DenriForm.resx">
+      <DependentUpon>DenriForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
@@ -180,6 +194,7 @@
   <ItemGroup>
     <None Include="BarcodeReceptionAssistant_1_TemporaryKey.pfx" />
     <None Include="BarcodeReceptionAssistant_TemporaryKey.pfx" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -189,7 +204,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -206,8 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BarcodeAssistant.ico" />
-    <None Include="Resources\BarcodeAssistant2-1.ico" />
-    <None Include="Resources\BarcodeAssistant.ico" />
+    <Content Include="Resources\BarcodeAssistant.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

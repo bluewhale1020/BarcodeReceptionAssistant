@@ -1,6 +1,7 @@
 ﻿Imports ClosedXML.Excel
 Imports System.Text.RegularExpressions
 Imports System.IO
+Imports System.Text
 
 Public Class ExcelController
     Private inputFileName As String = ""
@@ -11,6 +12,8 @@ Public Class ExcelController
     Private dtable As DataTable
     Private rx_date = New Regex("日|受付時", RegexOptions.Compiled)
     'Private numericCols As String() = New String() {"整理番号"}
+    Private Const TOTAL = "合計"
+    Private Const COLUMN_BIKO = "備考"
 
     Public Function ファイルのロード(ByVal filePath As String)
         'ファイルストリーム作成
@@ -38,21 +41,24 @@ Public Class ExcelController
                     dtable.Columns.Add("受付時間")
                 End If
 
-                For colnum = 1 To header.CellsUsed.Count
-                    If rx_date.IsMatch(header.Cell(colnum).Value) Then
-                        dateColIdcs.Add(colnum)
+                For column = 1 To header.CellsUsed.Count
+                    If rx_date.IsMatch(header.Cell(column).Value) Then
+                        dateColIdcs.Add(column)
                     End If
 
 
-                    dtable.Columns.Add(New DataColumn(header.Cell(colnum).Value, GetType(String)))
+                    dtable.Columns.Add(New DataColumn(header.Cell(column).Value, GetType(String)))
 
 
                 Next
+
 
                 Dim rows As IXLRows = objSheet.RowsUsed
                 Dim rowidx As Integer = 1
                 'Dim lastrowidx As Integer = objSheet.RowsUsed.Count
                 For Each row In rows
+
+                    Dim isSumRow As Boolean = False
 
                     If rowidx = 1 Then
                         rowidx += 1
@@ -69,6 +75,9 @@ Public Class ExcelController
                         '先頭に受付時間データを追加
                         drow(0) = ""
                     End If
+
+
+                    Dim bikoIdx As Integer = カラム名検索(COLUMN_BIKO, header)
 
 
                     For i = 0 To cells.Keys.Max()
@@ -91,7 +100,9 @@ Public Class ExcelController
 
                             End If
 
-
+                            If (i + 1) = bikoIdx AndAlso inputData = TOTAL Then
+                                isSumRow = True
+                            End If
                             'Console.WriteLine(c.CellValue) 'need hanle for special values 
                             'Else
                             '    drow(i + 1) = ""
@@ -106,8 +117,9 @@ Public Class ExcelController
 
 
                     Next
-
-                    dtable.Rows.Add(drow)
+                    If Not isSumRow Then
+                        dtable.Rows.Add(drow)
+                    End If
 
                     rowidx += 1
                 Next
@@ -164,21 +176,28 @@ Public Class ExcelController
 
     End Function
 
-    Public Function ファイルの保存(ByRef gridDataTable As DataTable, ByVal outputPath As String)
+    Public Function ファイルの保存(ByRef gridDataTable As DataTable, ByVal outputPath As String, ByVal addSumRow As Boolean)
 
-        Return exportDataTableToExcel(gridDataTable, outputPath)
+        Return exportDataTableToExcel(gridDataTable, outputPath, addSumRow)
 
 
     End Function
 
-    Private Function exportDataTableToExcel(ByRef objdt As DataTable, ByVal StrFilePath As String)
+    Private Function exportDataTableToExcel(ByRef objdt As DataTable, ByVal StrFilePath As String, ByVal addSumRow As Boolean)
 
         fileName = My.Settings.出力ファイル名 + ".xlsx"
 
         Dim saveFilePath As String = IO.Path.Combine(StrFilePath, createFullFileName(fileName))
+        Dim copiedTable As DataTable = objdt.Copy
+
+        If addSumRow Then
+            集計行の追加(copiedTable)
+        End If
 
         objBook = New XLWorkbook()
-        objBook.Worksheets.Add(objdt)
+        objBook.Worksheets.Add(copiedTable)
+
+
         Dim result As Boolean = True
         Try
             objBook.SaveAs(saveFilePath)
@@ -187,14 +206,43 @@ Public Class ExcelController
             'MessageBox.Show("グリッドデータをエクセルに保存できませんでした。", "保存エラー", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             objBook.Dispose()
-
+            copiedTable = Nothing
         End Try
 
-        'objBook.Dispose()
 
         Return result
 
     End Function
+
+    Private Sub 集計行の追加(ByRef dtable As DataTable)
+
+        Dim drow As DataRow = dtable.NewRow()
+        Dim startPrint As Boolean = False
+        Dim i As Integer = 0
+        For Each column As DataColumn In dtable.Columns
+            If Not startPrint Then
+                drow(i) = ""
+            Else
+                Dim count As Integer = dtable.Select("[" + column.ColumnName + "] <> '' AND [" + column.ColumnName + "] IS NOT NULL").Count
+                'Dim count As Integer = Convert.ToInt32(dtable.Compute("COUNT([" + column.ColumnName + "])", "[" + column.ColumnName + "] IS NOT NULL"))
+                drow(i) = count
+            End If
+
+
+            If column.ColumnName = COLUMN_BIKO Then
+                startPrint = True
+                drow(i) = TOTAL
+            End If
+            i += 1
+        Next
+
+
+
+        dtable.Rows.Add(drow)
+
+    End Sub
+
+
     Private Function createFullFileName(fileName)
 
         fileName = (Now.Date).ToLongDateString + fileName
