@@ -35,7 +35,7 @@ Public Class MainForm
     Dim rx = New Regex("^[0-9]{5}$", RegexOptions.Compiled)
     Private oldSNumber As String = ""
 
-    Private optionColNames As Array = {"身長", "体重", "BMI", "腹囲", "視力", "聴力", "診察", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "ALP・T-Bill", "ABC", "肝炎", "野田肝炎", "歯科検診"}
+    Private optionColNames As Array = {"身長", "体重", "BMI", "腹囲", "視力", "聴力", "診察", "便", "胃部", "眼底", "心電図", "胸部X線", "血圧", "尿沈渣", "肺活量", "握力", "RBC・HB", "AST・ALT・γ-GTP", "ALP・T-Bill", "ABC", "肝炎", "野田肝炎", "歯科検診"}
     Private bloodColName As String = "血液検査"
     Private bloodColNames As Array = {"生化", "血算", "血糖", "ヘパリン", "血液像"}
     Private urinaryColNames As Array = {"尿検査", "尿蛋白", "尿糖", "尿潜血"}
